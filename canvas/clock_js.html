@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas 时钟</title>
+    <style>
+        .box {
+            text-align: center;
+        }
+        canvas {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <canvas id="draw" width="300" height="300">你的浏览器版本太低了！</canvas>
+    </div>
+
+    <script>
+        window.onload = function() {
+            var oDraw = document.getElementById("draw");
+            if (oDraw.getContext) {
+                var oDc = oDraw.getContext("2d");
+                var r = oDraw.width / 2;
+                var gradient = oDc.createLinearGradient(0,0,150,150);
+                gradient.addColorStop(0,"#5f4f3a");
+                gradient.addColorStop(1,"#ff865a");
+                var gradient1 = oDc.createLinearGradient(0,0,150,150);
+                gradient1.addColorStop(0,"#ff7837");
+                gradient1.addColorStop(1,"#51f152");
+
+                //绘制外框
+                function drawBorder() {
+                    oDc.save();
+                    oDc.translate(r,r);
+                    oDc.save();
+                    oDc.strokeStyle = gradient;
+                    oDc.lineWidth = 0.06 * r;
+                    oDc.beginPath();
+                    oDc.arc(0,0,0.97 * r,0,2 * Math.PI,false);
+                    oDc.stroke();
+                    oDc.restore();
+                }
+                //绘制小时数字
+                function drawNum() {
+                    var arr = [3,4,5,6,7,8,9,10,11,12,1,2];
+                    oDc.font = 0.16 * r + "px Arial";
+                    oDc.textAlign = "center";
+                    oDc.textBaseline = "middle";
+                    for (var i=0; i<arr.length; i++) {
+                        var x = 0.74 * r * Math.cos(i * 30 * Math.PI/180);
+                        var y = 0.74 * r * Math.sin(i * 30 * Math.PI/180);
+                        oDc.fillText(arr[i],x,y);
+                    }
+                }
+                //绘制时针圆点刻度
+                function drawDot() {
+                    oDc.save();
+                    for (var i=0; i<60; i++) {
+                        var x = 0.86 * r * Math.cos(i * 6 * Math.PI/180);
+                        var y = 0.86 * r * Math.sin(i * 6 * Math.PI/180);
+
+                        oDc.beginPath();
+                        if (i%5 == 0) {
+                            oDc.fillStyle = "#000";
+                            oDc.arc(x,y,0.024 * r,0,2 * Math.PI,false);
+                        }else {
+                            oDc.fillStyle = gradient1;
+                            oDc.arc(x,y,0.02 * r,0,2 * Math.PI,false);
+                        }
+
+                        oDc.fill();
+                    }
+                    oDc.restore();
+                }
+                //绘制表针
+                function drawLine() {
+                    var oDate = new Date();
+                    var iHour = oDate.getHours();
+                    var iMin = oDate.getMinutes();
+                    var iSec = oDate.getSeconds();
+                    var iHourVal = (iHour + iMin/60) * 30 * Math.PI/180;
+                    var iMinVal = (iMin + iSec/60) * 6 * Math.PI/180;
+                    var iSecVal = iSec * 6 * Math.PI/180;
+                    //绘制时针
+                    oDc.save();
+                    oDc.lineWidth = 0.06 * r;
+                    oDc.lineCap = "round";
+                    oDc.beginPath();
+                    oDc.rotate(iHourVal);
+                    oDc.moveTo(0,0.1 * r);
+                    oDc.lineTo(0,-0.4 * r);
+                    oDc.stroke();
+                    oDc.restore();
+                    //绘制分针
+                    oDc.save();
+                    oDc.lineWidth = 0.04 * r;
+                    oDc.strokeStyle = "#7e3940";
+                    oDc.lineCap = "round";
+                    oDc.beginPath();
+                    oDc.rotate(iMinVal);
+                    oDc.moveTo(0,0.15 * r);
+                    oDc.lineTo(0,-0.6 * r);
+                    oDc.stroke();
+                    oDc.restore();
+                    //绘制秒针
+                    oDc.save();
+                    oDc.lineWidth = 0.02 * r;
+                    oDc.fillStyle = "red";
+                    oDc.beginPath();
+                    oDc.rotate(iSecVal);
+                    oDc.moveTo(-0.02 * r,0.2 * r);
+                    oDc.lineTo(0.02 * r,0.2 * r);
+                    oDc.lineTo(0.01 * r,-0.9 * r);
+                    oDc.lineTo(-0.01 * r,-0.9 * r);
+                    oDc.closePath();
+                    oDc.fill();
+                    oDc.restore();
+                }
+                //绘制表盘中心圆点
+                function drowCenterDot() {
+                    oDc.save();
+                    oDc.strokeStyle = "red";
+                    oDc.fillStyle = "#fff";
+                    oDc.lineJoin = "round";
+                    oDc.lineWidth = 0.03 * r;
+                    oDc.beginPath();
+                    oDc.rotate(45 * Math.PI/180);
+                    oDc.strokeRect(-0.03 * r,-0.03 * r,0.06 * r,0.06 * r);
+                    oDc.fillRect(-0.02 * r,-0.02 * r,0.04 * r,0.04 * r);
+                    oDc.restore();
+                }
+                //初始化时钟
+                function init() {
+                    oDc.clearRect(0,0,oDraw.width,oDraw.height);
+                    drawBorder();    //函数里的save()保存了最初的状态，原点为(0,0)
+                    drawNum();
+                    drawDot();
+                    drawLine();
+                    drowCenterDot();
+                    oDc.restore();   //回到最初状态
+                }
+                init();
+                setInterval(init,1000);
+            }
+        }
+    </script>
+</body>
+</html>
