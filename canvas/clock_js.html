@@ -45,6 +45,7 @@
                 //绘制小时数字
                 function drawNum() {
                     var arr = [3,4,5,6,7,8,9,10,11,12,1,2];
+
                     oDc.font = 0.16 * r + "px Arial";
                     oDc.textAlign = "center";
                     oDc.textBaseline = "middle";
@@ -69,7 +70,6 @@
                             oDc.fillStyle = gradient1;
                             oDc.arc(x,y,0.02 * r,0,2 * Math.PI,false);
                         }
-
                         oDc.fill();
                     }
                     oDc.restore();
