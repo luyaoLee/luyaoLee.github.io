@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>设置样式</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            width: 500px;
+            margin-left: 50px;
+        }
+        #target {
+            width: 100px;
+            height: 100px;
+            border: 3px solid #333;
+            transition: .3s;
+        }
+        a {
+            display: block;
+            width: 100px;
+            height: 35px;
+            background-color: orangered;
+            color: #fff;
+            margin-bottom: 50px;
+            margin-top: 20px;
+            line-height: 35px;
+            font-family: "微软雅黑";
+            text-decoration: none;
+            text-align: center;
+        }
+        #popup {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none;
+        }
+        .setting {
+            width: 320px;
+            height: 210px;
+            padding-top: 20px;
+            border: 12px solid #b1a881;
+            background-color: #fff;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -140px;
+            margin-top: -140px;
+            border-radius: 4px;
+        }
+        .text {
+            width: 150px;
+            text-align: right;
+            float: left;
+        }
+        .text p {
+            line-height: 40px;
+            margin-top: 5px;
+            font-family: "微软雅黑";
+        }
+        .selection {
+            list-style: none;
+            width: 150px;
+            margin-left: 20px;
+            float: left;
+        }
+        .selection li span {
+            float: left;
+            width: 40px;
+            line-height: 40px;
+            text-align: center;
+            margin-top: 5px;
+            cursor: pointer;
+            color: #fff;
+            border-radius: 3px;
+        }
+        .selection li span:hover,
+        .btn-box span:hover {
+            opacity: 0.8;
+        }
+        .selection li span + span {
+            margin-left: 5px;
+        }
+        .red {
+            background-color: red;
+        }
+        .green {
+            background-color: green;
+        }
+        .blue {
+            background-color: blue;
+        }
+        .selection li:nth-of-type(2) span,
+        .selection li:last-of-type span {
+            background-color: #a2b1a1;
+            color: #000;
+        }
+        .btn-box span {
+            float: left;
+            width: 50px;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 3px;
+            margin-top: 20px;
+            color: #fff;
+            cursor: pointer;
+        }
+        .btn-box span:first-child {
+            background-color: #ff7c1b;
+            margin-left: 90px;
+
+        }
+        .btn-box span:last-child {
+            background-color: #272fff;
+            margin-left: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>请为下面的DIV设置样式：</h2>
+        <a id="btn" href="javascript:;">点击设置</a>
+        <div id="target"></div>
+    </div>
+    <div id="popup">
+        <div class="setting">
+            <div class="text">
+                <p>请选择背景颜色 :</p>
+                <p>请选择宽度(px) :</p>
+                <p>请选择高度(px) :</p>
+            </div>
+            <ul class="selection" id="select">
+                <li>
+                    <span class="red">红</span>
+                    <span class="green">绿</span>
+                    <span class="blue">蓝</span>
+                </li>
+                <li>
+                    <span>200</span>
+                    <span>300</span>
+                    <span>400</span>
+                </li>
+                <li>
+                    <span>200</span>
+                    <span>300</span>
+                    <span>400</span>
+                </li>
+            </ul>
+            <div class="btn-box">
+                <span id="reset">重置</span>
+                <span id="confirm">确认</span>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        window.onload = function() {
+            var oBtn = document.getElementById("btn");
+            var oDiv = document.getElementById("target");
+            var oPop = document.getElementById("popup");
+            var oReset = document.getElementById("reset");
+            var oConfirm = document.getElementById("confirm");
+            var oSelect = document.getElementById("select");
+            var aSpan = oSelect.getElementsByTagName("span");
+            var arr = ["red", "green", "blue", 200, 300, 400, 200, 300, 400];
+
+            for (var i = 0; i < aSpan.length; i++) {
+                (function(i) {
+                    aSpan[i].onclick = function() {
+                        if (i < 3) {
+                            oDiv.style.backgroundColor = arr[i];
+                        } else if (i >= 3 && i < 6){
+                            oDiv.style.width = arr[i] + "px";
+                        } else {
+                            oDiv.style.height = arr[i] + "px";
+                        }
+                    }
+                })(i);
+            }
+            oBtn.onclick = function() {
+                oPop.style.display = "block";
+            };
+            oConfirm.onclick = function() {
+                oPop.style.display = "none";
+            };
+            oReset.onclick = function() {
+                oDiv.style = "";
+            };
+        }
+    </script>
+</body>
+</html>
