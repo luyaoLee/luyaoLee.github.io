@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>简易对话框</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            width: 300px;
+            height: 599px;
+            margin: 20px auto 0;
+            background: url(iPhone6_mockup.png) no-repeat 0 0;
+            position: relative;
+        }
+        .tip {
+            position: absolute;
+            right: -150px;
+            top: 50px;
+            width: 50px;
+            height: 50px;
+            background: url(tips.png) no-repeat 0 0;
+        }
+        .tip:hover p{
+            display: block;
+        }
+        .tip p {
+            position: absolute;
+            left: 50px;
+            top: 0;
+            width: 160px;
+            font-style: normal;
+            padding: 5px;
+            border-radius: 5px;
+            border: 3px solid #938e8c;
+            display: none;
+            line-height: 1.5;
+        }
+        #content {
+            width: 253px;
+            height: 447px;
+            position: absolute;
+            left: 18px;
+            top: 71px;
+            overflow: hidden;
+            font: 14px "微软雅黑";
+            color: #333;
+        }
+        #text {
+            width: 258px;
+            padding-left: 6px;
+            height: 402px;
+            padding-right: 20px;
+            background-color: #e3ff9e;
+            overflow-y: scroll;
+        }
+        .main {
+            height: 38px;
+            padding-top: 6px;
+            width: 100%;
+            border-top: 1px solid #d0d0d0;
+            background-color: #efefef;
+        }
+        #profile {
+            float: left;
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0 10px 0 6px;
+            border: 1px solid #d0d0d0;
+            cursor: pointer;
+        }
+        #profile img {
+            width: 30px;
+            height: 30px;
+        }
+        input {
+            width: 142px;
+            height: 30px;
+            font-size: 14px;
+            padding-left: 8px;
+            outline: none;
+            border: 1px solid #d0d0d0;
+            border-radius: 5px;
+            float: left;
+        }
+        #send {
+            float: left;
+            font: 15px/30px "微软雅黑";
+            border: 1px solid #d0d0d0;
+            border-radius: 5px;
+            padding: 0 5px;
+            margin-left: 5px;
+            box-shadow: 0 0 10px #c8c8ca inset;
+            cursor: pointer;
+            transition: .3s;
+        }
+        #send:hover {
+            background-color: #0c54ff;
+            color: #fff;
+            box-shadow: none;
+        }
+        .xiaoxin {
+            width: 100%;
+            padding: 10px 0 5px;
+            float: left;
+            overflow: hidden;
+        }
+        .xiaoxin img {
+            width: 30px;
+            height: 30px;
+            border-radius: 20%;
+            margin-right: 10px;
+            float: left;
+        }
+        .xiaoxin h2 {
+            font-size: 12px;
+            margin-top: -5px;
+            margin-bottom: 3px;
+            font-weight: normal;
+        }
+        .xiaoxin p {
+            float: left;
+            padding: 5px 10px;
+            max-width: 60%;
+            border-radius: 6px;
+            margin-left: 5px;
+            background-color: #49acb8;
+            position: relative;
+            color: #fff;
+        }
+        .xiaoxin p:before {
+            content: "";
+            border-style: solid;
+            border-width: 0 8px 6px 0;
+            border-color: transparent #49acb8 transparent transparent;
+            position: absolute;
+            left: -8px;
+            top: 6px;
+        }
+        .aisi {
+            float: right;
+            width: 100%;
+            padding-top: 10px;
+            padding-bottom: 18px;
+            overflow: hidden;
+        }
+        .aisi img {
+            width: 30px;
+            height: 30px;
+            border-radius: 20%;
+            margin-left: 10px;
+            float: right;
+        }
+        .aisi h2 {
+            font-size: 12px;
+            font-family: "微软雅黑";
+            margin-top: -5px;
+            margin-bottom: 3px;
+            float: right;
+            font-weight: normal;
+        }
+        .aisi p {
+            float: right;
+            padding: 5px 10px;
+            max-width: 60%;
+            border-radius: 6px;
+            margin-right: 5px;
+            background-color: #fff;
+            position: relative;
+            top: 15px;
+            left: 26px;
+        }
+        .aisi p:before {
+            content: "";
+            border-style: solid;
+            border-width: 0 0 6px 8px;
+            border-color: transparent  transparent transparent #fff;
+            position: absolute;
+            right: -8px;
+            top: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div id="content">
+            <!--<div id="user"></div>-->
+            <div id="text"></div>
+            <div class="main">
+                    <img id="profile" src="xiaoxin.jpg" alt="">
+                <input id="input1" type="text">
+                <span id="send">发送</span>
+            </div>
+        </div>
+        <i class="tip">
+            <p>1、点击头像可以切换输入角色<br>2、输入完毕按回车键可直接发送信息<br>3、信息过多时可以滚动查看历史信息</p>
+        </i>
+    </div>
+
+    <script>
+        window.onload = function() {
+            var oText = document.getElementById("text");
+            var oPic = document.getElementById("profile");
+            var oInput = document.getElementById("input1");
+            var oSend = document.getElementById("send");
+            var flag = false;
+
+            oInput.focus();
+            oSend.onclick = function() {
+                if (oInput.value == "") {
+                    alert("不要这么高冷哈，说点什么");
+                } else {
+                    init();
+                    autoScroll();
+                }
+            };
+            document.onkeyup = function(ev) {
+                if (ev.keyCode === 13) {
+                    oSend.click();
+                }
+            };
+            //点击头像切换人物
+            oPic.onclick = function() {
+                if (flag) {
+                    oPic.src = "xiaoxin.jpg";
+                    flag = false;
+                } else {
+                    oPic.src = "aisi.jpg";
+                    flag = true;
+                }
+            };
+            function init() {
+                //创建小新的对话框
+                var p1 = "<div class='xiaoxin'><img src='xiaoxin.jpg'><h2>小新</h2><p>"+ oInput.value +"</p></div>";
+                //创建艾斯的对话框
+                var p2 = "<div class='aisi'><img src='aisi.jpg'><h2>艾斯</h2><p>"+ oInput.value +"</p></div>";
+
+                if (flag) {                                      //flag为true时代表艾斯说话
+                    oText.innerHTML += p2;
+                } else {                                         //flag为false时代表小新说话
+                    oText.innerHTML += p1;
+                }
+                oInput.value = "";
+            }
+            function autoScroll() {
+                var iH = getHeight();                            //获取所有对话框的总高度
+                var iTextH = oText.clientHeight;
+                if (iH > iTextH) {
+                    oText.scrollTop = iH - iTextH;               //当对话框总高度大于手机屏幕高度，向下滚动超出高度的距离
+                }
+            }
+            function getHeight() {
+                var aDiv = oText.getElementsByTagName("div");
+                var iHeight = 0;
+                for (var i = 0; i < aDiv.length; i++) {
+                    iHeight += aDiv[i].offsetHeight;
+                }
+                return iHeight;
+            }
+        }
+    </script>
+</body>
+</html>
