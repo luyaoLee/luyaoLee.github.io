@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片刮刮乐</title>
+    <style>
+        #container {
+            width: 713px;
+            height: 509px;
+            background-color: #938e8c;
+            margin: 30px auto 0;
+            position: relative;
+            font-size: 60px;
+            font-family: "微软雅黑";
+            color: #707070;
+            line-height: 509px;
+            text-align: center;
+        }
+        #container div {
+            width: 50px;
+            height: 50px;
+            background: url(heartstone.jpg) no-repeat;
+            position: absolute;
+            left: 0;
+            top: 0;
+            overflow: hidden;
+            opacity: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">炉石刮刮乐</div>
+
+    <script>
+        window.onload = function() {
+            var oBox = document.getElementById("container");
+            var aDiv = oBox.getElementsByTagName("div");
+
+            for (var i = 0; i < 140; i++) {
+                oBox.innerHTML += "<div></div>";
+            }
+            for (var i = 0; i < aDiv.length; i++) {
+                aDiv[i].style.left = (i % 14) * 51 + "px";
+                aDiv[i].style.top = Math.floor(i / 14) * 51 + "px";
+                aDiv[i].style.backgroundPosition = (i % 14) * (-50) +"px "+ Math.floor(i / 14) * (-50) + "px";
+
+                aDiv[i].onmouseover = function() {
+                    this.style.opacity = 1;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
