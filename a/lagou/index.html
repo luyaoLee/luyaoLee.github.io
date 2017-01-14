@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>仿拉勾轮播图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            list-style: none;
+        }
+        .banner {
+            width: 744px;
+            height: 160px;
+            margin: 100px auto 0;
+            overflow: hidden;
+        }
+        #imgBox {
+            width: 612px;
+            height: 160px;
+            float: left;
+            position: relative;
+            font-size: 0;
+            cursor: pointer;
+        }
+        #miniImg {
+            float: right;
+            position: relative;
+        }
+        #miniImg li {
+            width: 113px;
+            height: 42px;
+            border: 4px solid #d3d3d3;
+        }
+        #miniImg li + li {
+            margin-top: 5px;
+        }
+        .mini-1 {
+            background: url(banner_01_1.JPG) no-repeat 0 0;
+        }
+        .mini-2 {
+            background: url(banner_02_1.JPG) no-repeat 0 0;
+        }
+        .mini-3 {
+            background: url(banner_03_1.JPG) no-repeat 0 0;
+        }
+        .cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 113px;
+            height: 42px;
+            border: 4px solid rgba(0, 179, 138, 0.5);
+        }
+        .cover:before {
+            content: "";
+            border-width: 6px 8px 6px 0;
+            border-style: solid;
+            border-color: transparent rgba(0, 179, 138, 0.5) transparent transparent;
+            position: absolute;
+            left: -12px;
+            top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <ul id="imgBox">
+            <li><img src="banner_01.JPG" alt=""></li>
+            <li><img src="banner_02.JPG" alt=""></li>
+            <li><img src="banner_03.JPG" alt=""></li>
+        </ul>
+        <ul id="miniImg">
+            <li class="mini-1"></li>
+            <li class="mini-2"></li>
+            <li class="mini-3"></li>
+            <i class="cover"></i>
+        </ul>
+    </div>
+
+    <script>
+        window.onload = function() {
+            var oBox = document.getElementById("imgBox");
+            var aLi = oBox.getElementsByTagName("li");
+            var oMiBox = document.getElementById("miniImg");
+            var aMiLi = oMiBox.getElementsByTagName("li");
+            var oCover = oMiBox.getElementsByTagName("i")[0];
+            var timer = null;
+            var iNow = 0;
+
+            init();
+            timer = setInterval(init, 3000);
+
+            for (var i = 0; i < aLi.length; i++) {
+                aLi[i].index = i;
+                aLi[i].onmouseover = function() {
+                    clearInterval(timer);
+                };
+                aLi[i].onmouseout = function() {
+                    timer = setInterval(init, 3000);
+                }
+            }
+            for (var i = 0; i < aLi.length; i++) {
+                aMiLi[i].index = i;
+                aMiLi[i].onmouseover = function() {
+                    clearInterval(timer);
+                    startMove(oBox, {"top": this.index * (-160)});
+                    startMove(oCover, {"top": this.index * 55});
+                };
+                aMiLi[i].onmouseout = function() {
+                    timer = setInterval(init, 3000);
+                    iNow = this.index;
+                }
+            }
+            function init() {
+                if (iNow > aLi.length - 1) {
+                    iNow = 0;
+                }
+                startMove(oBox, {"top": iNow * (-160)});
+                startMove(oCover, {"top": iNow * 55});
+                iNow++;
+            }
+            function getStyle(obj, attr) {
+                    //IE写法
+                if (obj.currentStyle) {
+                    return obj.currentStyle[attr];
+                    //标准
+                } else {
+                    return getComputedStyle(obj, false)[attr];
+                }
+            }
+            function startMove(obj, json, func) {
+                var flag = true; //假设所有运动到达终点.
+                clearInterval(obj.timer);
+                obj.timer = setInterval(function () {
+                    for (var attr in json) {
+                        //1.取当前的属性值。
+                        var iCurrent = 0;
+                        if (attr === "opacity") { //为透明度时执行。
+                            iCurrent = Math.round(parseFloat(getStyle(obj, attr)) * 100);
+                        } else { //默认情况
+                            iCurrent = parseInt(getStyle(obj, attr)); //实际样式大小
+                        }
+                        //2.算运动速度,动画缓冲效果
+                        var iSpeed = (json[attr] - iCurrent) / 4; //(目标值-当前值)/缩放系数=速度
+                        iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed); //速度取整
+                        //3.未到达目标值时，执行代码
+                        if (iCurrent != json[attr]) {
+                            flag = false; //终止条件
+                            if (attr === "opacity") { //为透明度时，执行
+                                obj.style.filter = "alpha(opacity:" + (iCurrent + iSpeed) + ")"; //IE
+                                obj.style.opacity = (iCurrent + iSpeed) / 100; //标准
+                            } else { //默认
+                                obj.style[attr] = iCurrent + iSpeed + "px";
+                            }
+                        } else {
+                            flag = true;
+                        }
+                        //4. 运动终止，是否回调
+                        if (flag) {
+                            clearInterval(obj.timer);
+                            if (func) {
+                                func();
+                            }
+                        }
+                    }
+                }, 30);
+            }
+        }
+    </script>
+</body>
+</html>
