@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>函数传参</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .panel {
+            width: 300px;
+            margin: 100px auto 0;
+            border: 3px solid #938e8c;
+            padding: 15px;
+            border-radius: 3px;
+        }
+        ul {
+            list-style: none;
+        }
+        p {
+            width: 90%;
+            height: 30px;
+            font: 14px/30px "微软雅黑";
+            border-bottom: 1px dashed #ccc;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        ul li {
+            position: relative;
+            margin-top: 10px;
+        }
+        ul input {
+            display: none;
+            height: 30px;
+            width: 185px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: none;
+            outline: none;
+            font: 14px/30px "微软雅黑";
+        }
+        ul li i {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            background: url(edit.png) no-repeat 0 0;
+            cursor: pointer;
+        }
+        ul li span {
+            position: absolute;
+            top: 0;
+            width: 35px;
+            height: 25px;
+            border-radius: 3px;
+            font-size: 12px;
+            line-height: 25px;
+            text-align: center;
+            cursor: pointer;
+            color: #eee;
+            background-color: #5a5b5b;
+            display: none;
+        }
+        ul li span:hover {
+            opacity: 0.9;
+        }
+        ul li span:nth-of-type(1) {
+            right: 70px;
+        }
+        ul li span:nth-of-type(2) {
+            right: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="panel">
+        <ul id="list">
+            <li>
+                <p>练习函数传参</p>
+                <input type="text">
+                <i></i>
+                <span>保存</span>
+                <span>取消</span>
+            </li>
+            <li>
+                <p>点击右边图标可修改内容</p>
+                <input type="text">
+                <i></i>
+                <span>保存</span>
+                <span>取消</span>
+            </li>
+            <li>
+                <p>试一试</p>
+                <input type="text">
+                <i></i>
+                <span>保存</span>
+                <span>取消</span>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        window.onload = function() {
+            var oList = document.getElementById("list");
+            var aLi = oList.getElementsByTagName("li");
+
+            init(aLi[0]);
+            init(aLi[1]);
+            init(aLi[2]);
+
+            function init(obj) {
+                var oI = obj.getElementsByTagName("i")[0];
+                var oP = obj.getElementsByTagName("p")[0];
+                var oInput = obj.getElementsByTagName("input")[0];
+                var aSpan = obj.getElementsByTagName("span");
+                var flag = true;
+
+                oI.onclick = function() {           //点击图标
+                    change();
+                    oInput.focus();
+                };
+
+                for (var i = 0; i < aSpan.length; i++) {
+                    aSpan[0].onclick = function() {   //保存按钮
+                        oP.innerText = oInput.value;
+                        change();
+                    };
+                    aSpan[1].onclick = function() {   //取消按钮
+                        change();
+                    };
+                }
+
+                function change() {
+                    if (flag) {                     //flag为true时，显示保存和取消按钮，文本框处于可编辑状态
+                        oP.style.fontSize = 0;
+                        oInput.value = oP.innerHTML;
+                        oInput.style.display = "block";
+                        for (var i = 0; i < aSpan.length; i++) {
+                            aSpan[i].style.display = "block";
+                        }
+                        flag = false;
+                    } else {                         //flag为false时，按钮消失，文本框处于不可编辑状态
+                        oP.style.fontSize = "14px";
+                        oInput.style.display = "none";
+                        for (var j = 0; j < aSpan.length; j++) {
+                            aSpan[j].style.display = "none";
+                        }
+                        flag = true;
+                    }
+                }
+            }
+        };
+    </script>
+</body>
+</html>
