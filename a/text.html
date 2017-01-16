@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>文字查找替换</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        p {
+            line-height: 1.5;
+            text-indent: 2em;
+            text-align: justify;
+            text-shadow: 1px 1px 2px #c2c2c1;
+        }
+        ul {
+            list-style: none;
+        }
+        ul i {
+            float: right;
+            font-style: normal;
+            line-height: 32px;
+            cursor: pointer;
+            transition: .5s;
+            width: 32px;
+            text-align: center;
+        }
+        ul i:hover {
+            transform: rotate(180deg);
+        }
+        input {
+            outline: none;
+        }
+        .container {
+            width: 450px;
+            margin: 50px auto 0;
+            padding: 20px 30px;
+            border: 2px solid #5a5b5b;
+            border-radius: 5px;
+            position: relative;
+        }
+        #content span {
+            background-color: yellow;
+        }
+        #panel {
+            display: none;
+        }
+        #panel ul li {
+            float: left;
+            width: 80px;
+            line-height: 30px;
+            text-align: center;
+            border-width: 2px 2px 0 2px;
+            border-color: #5a5b5b;
+            border-style: solid;
+            border-radius: 10px 10px 0 0;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        #panel ul li.active {
+            background-color: #5a5b5b;
+            color: #eee;
+        }
+        #panel ul {
+            overflow: hidden;
+            clear: both;
+            padding-top: 20px;
+            margin: 20px 0;
+            border-bottom: 2px solid #5a5b5b;
+            border-top: 1px dashed #8e8f8f;
+        }
+        #panel div input {
+            line-height: 25px;
+        }
+        #panel div button {
+            line-height: 25px;
+            width: 40px;
+        }
+        #panel div {
+            display: none;
+        }
+        #panel div.active {
+            display: block;
+        }
+        #tip {
+            width: 60px;
+            position: absolute;
+            top: 0;
+            right: -80px;
+            text-align: center;
+        }
+        #tip span {
+            display: block;
+            background-color: #5a5b5b;
+            color: #ebebeb;
+            line-height: 25px;
+            cursor: pointer;
+        }
+        #tip > span {
+            line-height: 35px;
+            margin-bottom: 1px;
+        }
+        #tip div {
+            display: none;
+        }
+        #tip div span:hover {
+           background-color: orangered;
+        }
+        #tip:hover #fold {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p id="content">今天的天气很好，午后阳光灿烂。我坐在店铺中，默默地观看门前过往的车辆和行人，悠然地欣赏天空中的行云，静静地谛听不远处传来隐隐的鸡鸣声。即将进入腊月，想不到还有这样暖洋洋的天气，心情不错，远近的花草，店铺对面的竹杆上悬挂着一只只在日光下暴晒的鸭干，旁边有妇女在指指点点，都让人觉得爽眼。空坪上，一对男女儿童面对面地比比划划，不停地说笑。附近有几个儿童叫喊起来，打破了山街的寂静，热闹了起来。是的，在人间风景、阳光和孩子才是最有生机的东西。可以想象，人间没有这三样东西，会是个怎么样子。我爱风景、阳光、尤其是孩子们。</p>
+        <div id="panel">
+            <ul>
+                <li class="active">查找</li>
+                <li>替换</li>
+                <i id="close" title="close">X</i>
+            </ul>
+            <div class="active">
+                <input id="search" type="text">
+                <button id="searchBtn">查找</button>
+            </div>
+            <div>
+                <input id="input1" type="text">
+                <input id="replace" type="text">
+                <button id="replaceBtn">替换</button>
+            </div>
+        </div>
+        <div id="tip">
+            <span id="unfold">展开</span>
+            <div id="fold">
+                <span>查找</span>
+                <span>替换</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            var oFold = document.getElementById("fold");
+            var aSpan = oFold.getElementsByTagName("span");
+            var oPanel = document.getElementById("panel");
+            var aLi = oPanel.getElementsByTagName("li");
+            var aDiv = oPanel.getElementsByTagName("div");
+            var oSearch = document.getElementById("search");
+            var oSearchBtn = document.getElementById("searchBtn");
+            var oInput = document.getElementById("input1");
+            var oReplace = document.getElementById("replace");
+            var oReplaceBtn = document.getElementById("replaceBtn");
+            var oContent = document.getElementById("content");
+            var oClose = document.getElementById("close");
+
+            oClose.onclick = function() {
+                oPanel.style.display = "none";
+            };
+            //选项卡内部切换
+            for (var i = 0; i < aLi.length; i++) {
+                aLi[i].index = i;
+                aLi[i].onclick = function() {
+                    clearColor();
+                    clearValue();
+                    remActive();
+                    this.className = "active";
+                    aDiv[this.index].className = "active";
+                }
+            }
+            //右侧导航条切换
+            for (var i = 0; i < aSpan.length; i++) {
+                aSpan[i].index = i;
+                aSpan[i].onclick = function() {
+                    clearValue();
+                    remActive();
+                    oPanel.style.display = "block";
+                    aDiv[this.index].className = "active";
+                    aLi[this.index].className = "active";
+                }
+            }
+            //查找
+            oSearchBtn.onclick = function() {
+                clearColor();
+
+                if (oSearch.value === "") {
+                    alert("请输入字符！");
+                    return false;
+                }
+                if (oContent.innerHTML.indexOf(oSearch.value) < 0) {
+                    alert("对不起，没有找到您输入的："+ oSearch.value + "");
+                } else {
+                    oContent.innerHTML = oContent.innerHTML.split(oSearch.value).join("<span>" + oSearch.value + "</span>");
+                }
+            };
+            //替换
+            oReplaceBtn.onclick = function() {
+                clearColor();
+                if (oInput.value=== "" || oReplace.value === "") {
+                    alert("请输入字符！");
+                    return false;
+                }
+                oContent.innerHTML = oContent.innerHTML.split(oInput.value).join(oReplace.value);
+            };
+
+
+            function clearColor() {
+                var regex = /<span>|<\/span>/g;
+                oContent.innerHTML = oContent.innerHTML.replace(regex, "");
+            }
+
+            function clearValue() {
+                var aInput = oPanel.getElementsByTagName("input");
+                for (var i = 0; i < aInput.length; i++) {
+                    aInput[i].value = "";
+                }
+            }
+            function remActive() {
+                for (var j = 0; j < aLi.length; j++) {
+                    aLi[j].className = "";
+                    aDiv[j].className = "";
+                }
+            }
+
+
+        };
+    </script>
+</body>
+</html>
