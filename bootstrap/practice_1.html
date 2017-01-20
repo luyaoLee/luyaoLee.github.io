@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>仿Laravel</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+		<script src="js/respond.min.js"></script>
+	<![endif]-->
+	<style>
+		body {
+			background-color: #ebebeb;
+			color: #505050;
+			font-family: "微软雅黑";
+		}
+		.trans {
+			-webkit-transition: .2s ease-in-out;
+			-moz-transition: .2s ease-in-out;
+			-ms-transition: .2s ease-in-out;
+			-o-transition: .2s ease-in-out;
+			transition: .2s ease-in-out;
+		}
+		.trans:hover {
+			background-color: #333!important;
+			border-color: #333!important;
+			color: #fff!important;
+		}
+		#header	{
+			padding: 60px 0 25px;
+			background-color: #f4645f;
+			background-image: url(http://image.golaravel.com/5/c9/44e1c4e50d55159c65da6a41bc07e.jpg);
+			background-position: center 20%;
+			background-size: 100%;
+		}
+		#header h1 {
+			font-size: 3em;
+			color: #fff;
+			margin-bottom: 40px;
+		}
+		#header a {
+			background: none;
+			border-color: #f1362f;
+			color: #fff;
+		}
+		.top-nav {
+			border: none;
+			background-color: #fff;
+			box-shadow: 0 1px 2px #ccc;
+		}
+		#myNav ul {
+			float: none;
+		}
+		#myNav ul li {
+			float: none;
+			display: inline-block;
+		}
+		#myNav ul a {
+			padding: 0 21px;
+			line-height: 56px;
+			color: #505050;
+			position: relative;
+		}
+		#myNav ul a.active:after {
+			content: "";
+			width: 100%;
+			height: 2px;
+			position: absolute;
+			left: 0;
+			bottom: -2px;
+			background-color: #f4645f;
+		}
+		#myNav ul a:hover {
+			color: #f4645f;
+		}
+		/* 内容区 */
+		.content {
+
+			padding: 15px;
+		}
+		.content article {
+			background-color: #fff;
+			padding: 15px 35px 35px 35px;
+			margin-bottom: 35px;
+		}
+		.content article h2 {
+			font-size: 28px;
+			line-height: 1.25em;
+		}
+		.content article img {
+			margin-bottom: 30px;
+		}
+		.content article > p {
+			font-size: 18px;
+			line-height: 1.62;
+			margin-bottom: 30px;
+		}
+		.content article > button {
+			outline: none;
+			border: none;
+			padding: 7px 14px;
+			background-color: #f4645f;
+			color: #fff;
+			margin-bottom: 12px;
+		}
+		.article-heading p {
+			padding: 8px 0 20px;
+		}
+		.article-heading p a {
+			color: #f4645f;
+		}
+		/* 侧栏 */
+		.content aside {
+			background-color: #fff;
+			padding: 25px 30px;
+			margin-bottom: 35px;
+		}
+		.title {
+			font-size: 22px;
+			margin-top: 0;
+			padding-bottom: 8px;
+			border-bottom: 1px solid #e6e0de;
+			position: relative;
+		}
+		.title:after {
+			content: "";
+			width: 92px;
+			height: 1px;
+			position: absolute;
+			left: 0;
+			bottom: -1px;
+			background-color: #f4645f;
+		}
+		.content aside p {
+			padding: 15px 0 3px;
+		}
+		.content aside div,
+		.content aside div a {
+			color: #f4645f;
+		}
+		aside a[class*="btn-block"] {
+			margin-top: 20px;
+			background-color: #f4645f;
+			color: #fff;
+			border-color: #f4645f;
+		}
+		aside a[class*="label"] {
+			color: #959595;
+			font-weight: normal;
+			border: 1px solid #ebebeb;
+			font-size: 14px;
+			padding: 7px;
+			display: inline-block;
+			margin: 0 7px 7px 0;
+		}
+		/* 分页 */
+		.pager button {
+			outline: none;
+			border: none;
+			padding: 7px 14px;
+			background-color: #f4645f;
+			color: #fff;
+			margin-bottom: 12px;
+		}
+		/* 底栏 */
+		.main-footer {
+			background-color: #202020;
+		}
+		.main-footer .title {
+			color: #fff;
+			margin-bottom: 25px;
+		}
+		.widget {
+			padding: 35px 35px 0;
+		}
+		.widget .para {
+			border-bottom: 1px dashed #303030;
+			padding-bottom: 15px;
+			margin-bottom: 18px;
+			line-height: 1.65;
+		}
+		.widget .para a {
+			text-decoration: none;
+			color: #959595;
+		}
+		.widget:nth-of-type(3) a {
+			text-decoration: none;
+			color: #959595;
+			margin-left: 5px;
+			margin-right: 40px;
+		}
+		.widget a[class*="label"] {
+			color: #959595;
+			font-weight: normal;
+			border: 1px solid #303030;
+			font-size: 14px;
+			padding: 7px;
+			display: inline-block;
+			margin: 0 7px 7px 0;
+			border-radius: 0;
+		}
+		.copyright {
+			padding: 25px 0;
+			background-color: #111;
+		}
+		.copyright a {
+			color: #555555;
+		}
+		.copyright i {
+			font-style: normal;
+			margin: 0 6px;
+		}
+	</style>
+</head>
+<body>
+<!-- 顶部 -->
+<div class="container-fluid text-center" id="header">
+	<div class="row">
+		<div class="col-sm-12">
+			<h1>为 WEB 艺术家创造的 PHP 框架。</h1>
+		</div>
+		<div class="col-sm-12">
+			<a href="#" class="btn btn-default trans">5.1 中文文档</a>
+			<a href="#" class="btn btn-default trans">5.0 中文文档</a>
+			<a href="#" class="btn btn-default trans">4.2 中文文档</a>
+			<a href="#" class="btn btn-default trans">4.1 中文文档</a>
+			<a href="#" class="btn btn-default trans">Lumen 中文文档</a>
+			<a href="#" class="btn btn-default trans">问答社区</a>
+		</div>
+	</div>
+</div>
+<!-- 导航条 -->
+<nav class="navbar navbar-default top-nav" role="navigation">
+	<div class="container">
+		<!-- 响应式切换按钮 -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNav">
+				<span class="sr-only">切换导航</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+		<!-- 切换区域 -->
+		<div class="collapse navbar-collapse text-center" id="myNav">
+			<ul class="nav navbar-nav">
+				<li><a class="active" href="#">首页</a></li>
+				<li><a href="#">Lumen</a></li>
+				<li><a href="#">问答社区</a></li>
+				<li><a href="#">中文文档</a></li>
+				<li><a href="#">下载离线文档</a></li>
+				<li><a href="#">API</a></li>
+				<li><a href="#">PHP中文手册</a></li>
+				<li><a href="#">Composer</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+<!-- 内容区 -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 content">
+			<article>
+				<div class="text-center article-heading">
+					<h2>Laravel 之父：让 Laravel、Symfony、 Zend 来一场公平的性能测试</h2>
+					<p class="text-muted">作者：<a href="#">王赛</a> • 2017年1月13日</p>
+				</div>
+				<p>网上充斥着各式各样的 PHP 框架性能对比的文章。然而，他们总是把“苹果”和“橘子”做对比（看上去有点儿像，都是圆的，但其实不是一码事）。这次，我将着重对 Laravel、Symfony 和 Zend 这三个框架做性能对比，并且还要说明为什么这三个框架总是被错误的进行比较。 我给的对比结果你不必全信。读完这篇文章之后，</p>
+				<button class="btn trans">阅读全文</button>
+				<hr>
+				<i class="icon-folder-open-alt text-muted"></i>
+			</article>
+			<article>
+				<div class="text-center article-heading">
+					<h2>Laravel 5.3 正式发布</h2>
+					<p class="text-muted">作者：<a href="#">王赛</a> • 2016年8月24日</p>
+				</div>
+				<img class="img-responsive" src="img/practice_1/img-1.png" alt="img">
+				<p>Laravel 项目组自豪地宣布 Laravel 5.3 正式发布了 ！5.3 版本中的新增特性主要集中在提升开发速度，通过增强常见任务的开箱即用功能提升开发效率。 此版本是常规发布版本，提供六个月的 bug 修复补丁和一年的安全补丁。当前，Laravel 5.1 是最新的 LTS（长期支持） 版本，提供两年的 bug</p>
+				<button class="btn trans">阅读全文</button>
+				<hr>
+				<i class="icon-folder-open-alt text-muted"></i>
+			</article>
+			<article>
+				<div class="text-center article-heading">
+					<h2>Laracon 开发者大会快报：听 Taylor Otwell 讲解 Laravel 5.3 的新特性</h2>
+					<p class="text-muted">作者：<a href="#">王赛</a> • 2016年7月28日</p>
+				</div>
+				<img class="img-responsive" src="img/practice_1/img-2.png" alt="img">
+				<p>今天， Taylor Otwell 在 Laracon US 开发者大会上就 Laravel 5.3 的新特性作了长时间的演讲，演讲内容主要概括为四个方面：Laravel Scout、Laravel Passport、Laravel Mailable 和 Laravel Notifications。 此次演讲预定是</p>
+				<button class="btn trans">阅读全文</button>
+				<hr>
+				<i class="icon-folder-open-alt text-muted"></i>
+			</article>
+			<div class="pager">
+				<button class="btn btn-default trans">第 1 页 ⁄ 共 6 页</button>
+				<button class="btn btn-default trans">&gt;</button>
+			</div>
+		</div>
+		<!-- 侧栏 -->
+		<div class="col-md-4 content">
+			<aside>
+				<h3 class="title">社区</h3>
+				<p class="text-muted">QQ群：462694081</p>
+				<div><i class="icon-comments"></i><a href="#"> 问答社区</a></div>
+			</aside>
+			<aside>
+				<h3 class="title">下载</h3>
+				<a class="btn btn-default btn-block trans" href="#">Laravel & Lumen 一键安装包下载</a>
+			</aside>
+			<aside>
+				<h3 class="title">标签云</h3>
+				<a class="label" href="#">Laravel 5.2</a>
+				<a class="label" href="#">Spark</a>
+				<a class="label" href="#">镜像</a>
+				<a class="label" href="#">新版本发布</a>
+				<a class="label" href="#">LTS</a>
+				<a class="label" href="#">微框架</a>
+				<a class="label" href="#">Lumen</a>
+				<a class="label" href="#">命名空间</a>
+				<a class="label" href="#">Laravel4</a>
+				<a class="label" href="#">Whoops</a>
+				<a class="label" href="#">Event</a>
+				<a class="label" href="#">升级</a>
+				<a class="label" href="#">laravle5</a>
+				<a class="label" href="#">错误页</a>
+				<a class="label" href="#">Laravel 5</a>
+				<a class="label" href="#">Artisan</a>
+				<a class="label" href="#">Laravel 5.1</a>
+				<a class="label" href="#">Lravel</a>
+				<a class="label" href="#">...</a>
+			</aside>
+		</div>
+	</div>
+</div>
+<!-- 底栏 -->
+<div class="main-footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4 widget">
+				<h3  class="title">最新文章</h3>
+				<p class="para">
+					<a href="#">Laravel 之父：让 Laravel、Symfony、 Zend 来一场公平的性能测试</a><br>
+					<span>2017年1月13日</span>
+				</p>
+				<p class="para">
+					<a href="#">Laravel 5.3 正式发布</a><br>
+					<span>2016年8月24日</span>
+				</p>
+				<p class="para">
+					<a href="#">Laracon 开发者大会快报：听 Taylor Otwell 讲解 Laravel 5.3 的新特性</a><br>
+					<span>2016年7月28日</span>
+				</p>
+			</div>
+			<div class="col-sm-4 widget">
+				<h3 class="title">标签云</h3>
+				<a class="label" href="#">Laravel</a>
+				<a class="label" href="#">Laravel入门教程</a>
+				<a class="label" href="#">Laravel 5</a>
+				<a class="label" href="#">Laravel 5.2</a>
+				<a class="label" href="#">Eloquent</a>
+				<a class="label" href="#">新版本发布</a>
+				<a class="label" href="#">Laravel 5.1</a>
+				<a class="label" href="#">laravle5</a>
+				<a class="label" href="#">Composer</a>
+				<a class="label" href="#">PHP</a>
+				<a class="label" href="#">ORM</a>
+				<a class="label" href="#">Artisan</a>
+				<a class="label" href="#">Lumen</a>
+				<a class="label" href="#">LTS</a>
+				<a class="label" href="#">安装</a>
+				<a class="label" href="#">...</a>
+			</div>
+			<div class="col-sm-4 widget">
+				<h3 class="title">合作伙伴</h3>
+				<p class="para">
+					<a href="#">Bootstrap中文网</a>
+					<a href="#">开放CDN服务</a>
+					<a href="#">Grunt中文网</a>
+					<a href="#">Gulp中文网</a>
+				</p>
+				<p class="para">
+					<a href="#">Lodash中文文档</a>
+					<a href="#">jQuery中文文档</a>
+				</p>
+				<p>
+					<a href="#">又拍云</a>
+					<a href="#">UCloud</a>
+					<a href="#">乐视云</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<footer class="copyright text-center">
+	<small>
+		<span>Copyright © <a href="#">Laravel 中文网</a></span>
+		<i>|</i>
+		<a href="#">京ICP备11008151号</a>
+		<i>|</i>
+		<span>京公网安备11010802014853</span>
+	</small>
+</footer>
+<!-- 引入脚本 -->
+<script src="js/jquery-1.12.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
