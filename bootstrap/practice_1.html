@@ -17,18 +17,6 @@
 			color: #505050;
 			font-family: "微软雅黑";
 		}
-		.trans {
-			-webkit-transition: .2s ease-in-out;
-			-moz-transition: .2s ease-in-out;
-			-ms-transition: .2s ease-in-out;
-			-o-transition: .2s ease-in-out;
-			transition: .2s ease-in-out;
-		}
-		.trans:hover {
-			background-color: #333!important;
-			border-color: #333!important;
-			color: #fff!important;
-		}
 		#header	{
 			padding: 60px 0 25px;
 			background-color: #f4645f;
@@ -45,6 +33,13 @@
 			background: none;
 			border-color: #f1362f;
 			color: #fff;
+		}
+		@media (max-width: 767px) {
+			#header a {
+				display: block;
+				width: 60%;
+				margin: 5px auto;
+			}
 		}
 		.top-nav {
 			border: none;
@@ -75,6 +70,13 @@
 		}
 		#myNav ul a:hover {
 			color: #f4645f;
+		}
+		.navbar-toggle {
+			float: none;
+			border: none;
+			padding: 6px 8px;
+			left: 50%;
+			margin-left: -20px;
 		}
 		/* 内容区 */
 		.content {
@@ -185,6 +187,15 @@
 		.widget .para a {
 			text-decoration: none;
 			color: #959595;
+
+		}
+		.widget .para a:hover {
+			-webkit-transition: .2s ease-in-out;
+			-moz-transition: .2s ease-in-out;
+			-ms-transition: .2s ease-in-out;
+			-o-transition: .2s ease-in-out;
+			transition: .2s ease-in-out;
+			color:#f4645f;
 		}
 		.widget:nth-of-type(3) a {
 			text-decoration: none;
@@ -213,6 +224,32 @@
 			font-style: normal;
 			margin: 0 6px;
 		}
+		/* hover */
+		.trans {
+			-webkit-transition: .2s ease-in-out;
+			-moz-transition: .2s ease-in-out;
+			-ms-transition: .2s ease-in-out;
+			-o-transition: .2s ease-in-out;
+			transition: .2s ease-in-out;
+		}
+		.trans:hover {
+			background-color: #333!important;
+			border-color: #333!important;
+			color: #fff!important;
+		}
+		.trans-1 a {
+			-webkit-transition: .2s ease-in-out;
+			-moz-transition: .2s ease-in-out;
+			-ms-transition: .2s ease-in-out;
+			-o-transition: .2s ease-in-out;
+			transition: .2s ease-in-out;
+			border-radius: 0;
+		}
+		.trans-1 a:hover {
+			background-color: #f4645f!important;
+			border-color: #f4645f!important;
+			color: #fff!important;
+		}
 	</style>
 </head>
 <body>
@@ -239,9 +276,7 @@
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNav">
 				<span class="sr-only">切换导航</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
+				<span class=" icon-reorder icon-2x"></span>
 			</button>
 		</div>
 		<!-- 切换区域 -->
@@ -311,7 +346,7 @@
 				<h3 class="title">下载</h3>
 				<a class="btn btn-default btn-block trans" href="#">Laravel & Lumen 一键安装包下载</a>
 			</aside>
-			<aside>
+			<aside class="trans-1">
 				<h3 class="title">标签云</h3>
 				<a class="label" href="#">Laravel 5.2</a>
 				<a class="label" href="#">Spark</a>
@@ -355,7 +390,7 @@
 					<span>2016年7月28日</span>
 				</p>
 			</div>
-			<div class="col-sm-4 widget">
+			<div class="col-sm-4 widget trans-1">
 				<h3 class="title">标签云</h3>
 				<a class="label" href="#">Laravel</a>
 				<a class="label" href="#">Laravel入门教程</a>
@@ -374,7 +409,7 @@
 				<a class="label" href="#">安装</a>
 				<a class="label" href="#">...</a>
 			</div>
-			<div class="col-sm-4 widget">
+			<div class="col-sm-4 widget trans-1">
 				<h3 class="title">合作伙伴</h3>
 				<p class="para">
 					<a href="#">Bootstrap中文网</a>
