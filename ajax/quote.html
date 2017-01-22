@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FreeCodeCamp Test</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Bree+Serif');
+        body {
+            background-color: #333;
+            color: #333;
+            font-family: 'Bree Serif', serif;
+            font-weight: 400;
+            position: relative;
+            -webkit-transition: background-color 1s;
+            -o-transition: background-color 1s;
+            transition: background-color 1s;
+        }
+        .quote-box {
+            width: 450px;
+            padding: 35px 40px 32px 40px;
+            margin: 100px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 5px #333 inset;
+            -webkit-transition: 1s;
+            -o-transition: 1s;
+            transition: 1s;
+        }
+        .quote-text {
+            text-align: center;
+            font-size: 1.75em;
+        }
+        .quote-author {
+            text-align: right;
+            padding-top: 20px;
+        }
+        .quote-btn {
+            text-align: center;
+            font-family: "Bree Serif", serif;
+            margin-bottom: 0 !important;
+            padding-top: 25px;
+        }
+        .quote-btn button {
+            line-height: 36px;
+            font-size: 1.15em;
+            background-color: #333;
+            color: #fff;
+            font-family: "Microsoft Yahei";
+            border: 1px solid #fff;
+            border-radius: 5px;
+            width: 130px;
+            cursor: pointer;
+            outline: none;
+            -webkit-transition: 1s;
+            -o-transition: 1s;
+            transition: 1s;
+        }
+        .quote-btn button:hover {
+            -webkit-transition: .3s;
+            -o-transition: .3s;
+            transition: .3s;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+<div class="quote-box">
+    <div class="quote-text">
+        <i class="fa fa-quote-left"> </i>
+        <span id="text"></span>
+    </div>
+    <div class="quote-author">
+        - <cite id="author"></cite>
+    </div>
+    <div class="quote-btn">
+        <button id="newQuote">New quote</button>
+    </div>
+</div>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    $(function() {
+        getQuote();
+        $("#newQuote").click(getQuote);
+
+        function getQuote() {
+            var curQuote = "";
+            var curAuthor = "";
+            var colors = ['#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6', '#FB6964', '#342224', "#472E32", "#BDBB99", "#77B1A9", "#73A857","#E2CE55"];
+            curColor = colors[Math.floor(Math.random() * colors.length)];
+
+            $.ajax({
+                headers: {
+                    "X-Mashape-Key": "V31REr3xH9mshIXkxtaMWcTk8aTgp1hsN8ujsnnrRRi5lQANHk",
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    Accept: "application/json"
+                },
+                url: "https://andruxnet-random-famous-quotes.p.mashape.com/?cat=movies",
+                success: function(response) {
+                    var data = JSON.parse(response);
+                    curQuote = data.quote;
+                    curAuthor = data.author;
+
+                    $(".quote-text").animate({
+                        opacity: 0
+                    },500,function() {
+                        $(this).animate({
+                            opacity: 1
+                        },500);
+                        $("#text").html(curQuote);
+                    });
+                    $(".quote-author").animate({
+                        opacity: 0
+                    },500,function() {
+                        $(this).animate({
+                            opacity: 1
+                        },500);
+                        $("#author").html(curAuthor);
+                    });
+                    $("body").css({
+                        "backgroundColor": curColor,
+                        "color": curColor
+                    });
+                    $("#newQuote").css({
+                        "backgroundColor": curColor
+                    });
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>
