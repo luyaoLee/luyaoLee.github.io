@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>百度一下</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #333;
+        }
+        ul {
+            list-style: none;
+        }
+        .container {
+            width: 598px;
+            margin: 70px auto 0;
+        }
+        .container img {
+            display: block;
+            width: 260px;
+            margin: 0 auto 20px;
+        }
+        .search-box {
+            overflow: hidden;
+            clear: both;
+        }
+        #search {
+            width: 480px;
+            padding: 10px 7px;
+            line-height: 20px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            vertical-align: middle;
+            float: left;
+        }
+        #searchBtn {
+            float: left;
+            width: 104px;
+            line-height: 40px;
+            text-align: center;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 1px -4px 5px #c5c6c4 inset;
+        }
+        #list {
+            width: 492px;
+            border: 1px solid #c9c4c2;
+            display: none;
+            background-color: #fff;
+        }
+        #list li {
+            line-height: 30px;
+        }
+        #list li {
+            padding: 0 6px;
+        }
+        #list li:hover {
+            background-color: #eee;
+        }
+        #list li a {
+            display: block;
+            color: #000;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white_fe6da1ec.png" alt="百度Logo">
+    <div class="search-box">
+        <input type="text" id="search">
+        <button id="searchBtn">百度一下</button>
+    </div>
+    <ul id="list"></ul>
+</div>
+
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    $(function() {
+        var $list = $("#list");
+        var $search = $("#search");
+
+        $("#searchBtn").click(function () {
+            window.open("https://www.baidu.com/s?wd=" + $search.val() + "");
+            $search.val("");
+        });
+
+        $search.on("input propertychange", function () {
+            if ($(this).val() !== "") {
+                $.ajax({
+                    type: "GET",
+                    url: "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + $search.val(),
+                    async: false,
+                    dataType: "jsonp",
+                    jsonp: "cb",
+                    success: function (data) {
+                        var html = "";
+
+                        if (data.s.length) {
+                            $list.show();
+                            for (var i = 0; i < data.s.length; i++) {
+                                html += "<li><a href='https://www.baidu.com/s?wd=" + data.s[i] + "' target='_blank'>" + data.s[i] + "</a></li>";
+                            }
+                            $list.html(html);
+                        } else {
+                            $list.hide();
+                        }
+                    }
+                });
+            } else {
+                $list.hide();
+            }
+        });
+
+        $(document).click(function () {
+            $list.hide();
+        });
+    });
+</script>
+</body>
+</html>
