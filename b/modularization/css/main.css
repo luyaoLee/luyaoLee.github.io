@@ -1,0 +1,24 @@
+@charset "UTF-8";
+/* pulic */
+body {
+    font-size: 14px;
+    font-family: "微软雅黑";
+}
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+.gradient {
+    width: 100px;
+    height: 100px;
+    background: -webkit-linear-gradient(top, #fff, #f3f3f3);
+}
+
+/* layout */
