@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Task_1_5</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #d0d0d0;
+            min-width: 630px;
+        }
+        /* public */
+        .main {
+            padding: 20px;
+        }
+        .container {
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 2px 1px 5px #848484;
+            border-radius: 5px;
+            margin-right: 380px;
+        }
+        .container + .container {
+            margin-top: 20px;
+        }
+        /* header */
+        header {
+            height: 60px;
+            padding: 0 50px;
+            background-color: #333;
+        }
+        header .logo {
+            height: 60px;
+            float: left;
+        }
+        header img {
+            width: 118px;
+            position: relative;
+            top: 50%;
+            margin-top: -19px;
+        }
+        header nav {
+            float: right;
+            height: 60px;
+            line-height: 60px;
+        }
+        header nav a {
+            color: #eee;
+            text-decoration: none;
+            font-size: 12px;
+            font-family: "微软雅黑";
+            margin-left: 10px;
+        }
+        header nav a:last-child {
+            color: #888;
+        }
+        /* article */
+        article h2 {
+            color: #222;
+            font-size: 25px;
+            line-height: 45px;
+            font-family: "微软雅黑";
+            font-weight: bold;
+        }
+        article h3 {
+            font-size: 20px;
+            line-height: 36px;
+            font-family: "微软雅黑";
+            color: #6d6865;
+        }
+        .info {
+            font-size: 14px;
+            font-family: "微软雅黑";
+            color: #6d6865;
+            margin-bottom: 12px;
+        }
+        .info span {
+            margin-right: 10px;
+        }
+        section p {
+            font-size: 16px;
+            line-height: 1.85;
+            font-family: "微软雅黑";
+            text-indent: 2em;
+        }
+        section img {
+            margin: 15px 0;
+            width: 35%;
+            min-width: 168px;
+        }
+        section .list li {
+            list-style: none;
+            margin-bottom: 10px;
+            margin-left: 20px;
+            font-size: 14px;
+            font-family: "微软雅黑";
+        }
+        section ol li {
+            margin-bottom: 10px;
+            margin-left: 40px;
+            font-size: 14px;
+            font-family: "微软雅黑";
+        }
+        /* img-box */
+        .img-box {
+            overflow: hidden;
+        }
+        .img-box h2 {
+            color: #222;
+            font: bold 20px/40px "微软雅黑";
+            margin: 10px 0;
+        }
+        .img-box figure {
+            width: 120px;
+            padding: 10px;
+            border: 1px solid #cecece;
+            text-align: center;
+            margin: 10px;
+            float: left;
+        }
+        .img-box figure figcaption {
+            font-size: 14px;
+            font-family: "微软雅黑";
+            margin-bottom: 10px;
+        }
+        .img-box figure img {
+            width: 100%!important;
+            height: auto!important;
+        }
+        /* table */
+        table {
+            width: 100%;
+            text-align: left;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #cecece;
+        }
+        table th {
+            padding: 5px;
+            background-color: #333;
+            color: #eee;
+            font-size: 16px;
+        }
+        table td {
+            padding: 5px;
+        }
+        table tr:last-child {
+            background-color: #ccc;
+            font-weight: bold;
+        }
+        /* aside */
+        aside {
+            width: 318px;
+            line-height: 2;
+            font-size: 14px;
+            font-family: "微软雅黑";
+            float: right;
+            padding: 20px;
+            margin: 20px 20px 0 0;
+            background-color: #fff;
+            box-shadow: 2px 1px 5px #848484;
+            border-radius: 5px;
+        }
+        aside h2 {
+            line-height: 38px;
+            padding-left: 15px;
+            border-left: 3px solid #ccc;
+            font-size: 16px;
+            font-family: "微软雅黑";
+            margin-bottom: 20px;
+        }
+        aside label {
+            display: inline-block;
+            width: 130px;
+            text-align: right;
+            vertical-align: middle;
+        }
+        aside textarea {
+            vertical-align: text-top;
+        }
+        aside input {
+            line-height: 18px;
+            vertical-align: middle;
+        }
+        aside .tips {
+            font-size: 12px;
+            color: #b5b5b5;
+            text-indent: 134px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        aside button {
+            width: 100%;
+            height: 40px;
+            display: block;
+            font-size: 16px;
+            font-family: "微软雅黑";
+            text-align: center;
+            border-radius: 5px;
+            background-color: #3355d0;
+            margin-top: 20px;
+            color: #eee;
+            border: none;
+            outline: none;
+        }
+        /* footer */
+        footer {
+            height: 50px;
+            background-color: #333;
+            text-align: center;
+            line-height: 50px;
+            color: #eee;
+            font-family: "微软雅黑";
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <a class="logo" href="https://www.baidu.com/" target="_blank"><img src="logo.png" alt="logo"></a>
+        <nav>
+            <a href="#">导航链接一</a>
+            <a href="#">导航链接二</a>
+            <a href="#">导航链接三</a>
+            <a href="#">导航链接四</a>
+        </nav>
+    </header>
+    <aside>
+        <h2>这里以后是一个侧栏，这是侧栏的标题</h2>
+        <label>请输入邮箱地址：</label>
+        <input type="text">
+        <p class="tips">邮箱地址请按要求格式输入</p>
+        <label>请输入密码：</label>
+        <input type="text"><br>
+        <label>请重复输入密码：</label>
+        <input type="password">
+        <p class="tips">密码请为6-16位英文数字</p>
+        <label>性别：</label>
+        <input type="radio" checked> 男
+        <input type="radio"> 女<br>
+        <label>城市：</label>
+        <select>
+            <option value="beijing">北京</option>
+            <option value="shanghai">上海</option>
+            <option value="guangzhou">广州</option>
+            <option value="shenzhen" selected>深圳</option>
+        </select><br>
+        <label>爱好：</label>
+        <input type="checkbox"> 运动
+        <input type="checkbox"> 艺术
+        <input type="checkbox"> 科学<br>
+        <label>个人描述：</label>
+        <textarea cols="22" rows="5"></textarea>
+        <button type="submit">确认提交</button>
+    </aside>
+    <div class="main">
+        <article class="container">
+            <hgroup>
+                <h2>Malaysia</h2>
+                <h3>Kuala Lumpur</h3>
+            </hgroup>
+            <div class="info">
+                <span>路遥</span>
+                <time>2017.2.4</time>
+            </div>
+            <section>
+                <p>吉隆坡（英语：Kuala Lumpur，简称：KL）是马来西亚的首都（首相署和联邦行政中心已转移到吉隆坡以南20公里的Putrajaya，翻成中文是布城），是马来西亚<br />三个直辖区之一，其地理位置在于雪兰莪州之中，位于马来西亚半岛中央偏西海岸。吉隆坡位在巴生河流域，<br />东有蒂迪旺沙山脉为屏障，北方及南方有丘陵地环绕，西临<a href="http://baike.baidu.com/link?url=CyjFOOJA_NLRHGG8zoMjhCIxADovQCJ1GC5pIG18osmG1ObwQOjp1T4nhOrOTdeIn5w8ogSeBRQ5xUcujPeMFrMafqu8_0n7_H12XbDzW4q">马六甲海峡</a>。吉隆坡的马来语意指<em>“泥泞河口”</em>”，即巴生河和鹅麦河的交会处2007年，吉隆坡人口是190万，城市总面积243平方公里，是马来西亚政治、经济、金融、工业、商业和文化中心。</p>
+                <img src="klcc.jpg" alt="klcc">
+                <p>坐落于吉隆坡市中心的吉隆坡石油双塔是吉隆坡的著名地标。吉隆坡是一座新旧辉映、东方色彩与西方文明有机融合的新兴国际大都市。也是一个具有独特魅力的城市，充满多元文化的气息，这里有着多种语言可供沟通。风俗传统别具特色，全方位凸现了马来西亚多民族和睦共存、开拓奋进的独特魅力。</p>
+            </section>
+        </article>
+        <article class="container">
+            <hgroup>
+                <h2>Malaysia</h2>
+                <h3>Melaka</h3>
+            </hgroup>
+            <div class="info">
+                <span>路遥</span>
+                <time>2017.2.4</time>
+            </div>
+            <section>
+                <p>马六甲(英文：Malacca，马来文Melaka。Jawi: 或Malacca），另一个写法是麻六甲，是马来西亚的一个州，在马来半岛南部，<br />濒临马六甲海峡。马六甲州的首府也叫马六甲。曾经的马六甲王国都城，郑和下西洋有六次在此停靠,如今是马六甲海峡这条海上生命线的咽喉所在。<br />根据联合国教科文组织于2008年7月7日的加拿大魁北克当地时间上午9时30分（大马时间9时30分）召开的世界文化遗产大会，宣布<a href="http://baike.baidu.com/link?url=CyjFOOJA_NLRHGG8zoMjhCIxADovQCJ1GC5pIG18osmG1ObwQOjp1T4nhOrOTdeIn5w8ogSeBRQ5xUcujPeMFrMafqu8_0n7_H12XbDzW4q">马六甲市</a>正式被列入<em>世界遗产名录</em>。</p>
+                <img src="melaka.jpg" alt="melaka" >
+                <ul class="list">
+                    <li>列表项目一</li>
+                    <li>列表项目二</li>
+                    <li>列表项目三</li>
+                </ul>
+            </section>
+        </article>
+        <div class="img-box container">
+            <h2>图片</h2>
+            <figure>
+                <figcaption>好看的图片</figcaption>
+                <img src="klcc-min.jpg" alt="klcc-min">
+            </figure>
+            <figure>
+                <figcaption>好看的图片</figcaption>
+                <img src="klcc-min.jpg" alt="klcc-min">
+            </figure>
+            <figure>
+                <figcaption>好看的图片</figcaption>
+                <img src="klcc-min.jpg" alt="klcc-min">
+            </figure>
+            <figure>
+                <figcaption>好看的图片</figcaption>
+                <img src="klcc-min.jpg" alt="klcc-min">
+            </figure>
+            <figure>
+                <figcaption>好看的图片</figcaption>
+                <img src="klcc-min.jpg" alt="klcc-min">
+            </figure>
+            <figure>
+                <figcaption>好看的图片</figcaption>
+                <img src="klcc-min.jpg" alt="klcc-min">
+            </figure>
+            <figure>
+                <figcaption>好看的图片</figcaption>
+                <img src="klcc-min.jpg" alt="klcc-min">
+            </figure>
+            <figure>
+                <figcaption>好看的图片</figcaption>
+                <img src="klcc-min.jpg" alt="klcc-min">
+            </figure>
+            <figure>
+                <figcaption>好看的图片</figcaption>
+                <img src="klcc-min.jpg" alt="klcc-min">
+            </figure>
+            <figure>
+                <figcaption>好看的图片</figcaption>
+                <img src="klcc-min.jpg" alt="klcc-min">
+            </figure>
+        </div>
+        <article class="container">
+            <hgroup>
+                <h2>最后一篇文章一级标题</h2>
+                <h3>文章二级标题</h3>
+            </hgroup>
+            <div class="info">
+                <span>路遥</span>
+                <time>2017.2.4</time>
+            </div>
+            <section>
+                <ol>
+                    <li>排名1</li>
+                    <li>排名2</li>
+                    <li>排名3</li>
+                </ol>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>表头</th>
+                        <th>表头</th>
+                        <th>表头</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>表内容单元格</td>
+                        <td>表内容单元格</td>
+                        <td><a href="#">操作</a></td>
+                    </tr>
+                    <tr>
+                        <td>表内容单元格</td>
+                        <td>表内容单元格</td>
+                        <td><a href="#">操作</a></td>
+                    </tr>
+                    <tr>
+                        <td>表内容单元格</td>
+                        <td>表内容单元格</td>
+                        <td><a href="#">操作</a></td>
+                    </tr>
+                    <tr>
+                        <td>表内容单元格</td>
+                        <td>表内容单元格</td>
+                        <td><a href="#">操作</a></td>
+                    </tr>
+                    <tr>
+                        <td>总计</td>
+                        <td colspan="2">1000</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </article>
+    </div>
+
+    <footer>
+        <p>Coded by luyao</p>
+    </footer>
+</body>
+</html>
