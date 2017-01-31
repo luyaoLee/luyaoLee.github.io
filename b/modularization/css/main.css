@@ -16,9 +16,12 @@ body {
     clear: both;
 }
 .gradient {
-    width: 100px;
-    height: 100px;
     background: -webkit-linear-gradient(top, #fff, #f3f3f3);
+    background:    -moz-linear-gradient(top, #fff, #f3f3f3);
+    background:     -ms-linear-gradient(top, #fff, #f3f3f3);
+    background:      -o-linear-gradient(top, #fff, #f3f3f3);
+    background:         linear-gradient(top, #fff, #f3f3f3);
+    -ms-filter:"progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#FFFFFF, endColorstr=#f3f3f3)";
 }
 
 /* layout */
