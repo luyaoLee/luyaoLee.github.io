@@ -517,6 +517,7 @@ aside .user-infos {
     float: left;
     overflow: hidden;
     margin-top: 12px;
+    background-color: #fff;
 }
 .content-4 .panel.c1 {
     width: 528px;
@@ -537,4 +538,45 @@ aside .user-infos {
     font-family: "黑体";
     color: #999;
     text-indent: 20px;
+}
+.content-4 .panel .panel-search {
+    width: 274px;
+    overflow: hidden;
+    margin: 12px auto 0;
+}
+.content-4 .panel .p1000-muted {
+    color: #999;
+    margin-bottom: 3px;
+    padding-top: 3px;
+}
+.panel .p1000 p {
+    padding-left: 14px;
+}
+.panel .p1000.price {
+    width: 93px;
+    height: 42px;
+    border: 1px solid #ced1d4;
+    border-left: none;
+    float: left;
+    margin-top: 7px;
+    margin-bottom: 3px;
+}
+.panel .p1000.principal {
+    width: 180px;
+    height: 42px;
+    border: 1px solid #ced1d4;
+    border-left: none;
+    border-right: none;
+    float: left;
+    margin-top: 7px;
+    margin-bottom: 3px;
+}
+.p1000.detail .p1000-muted + p {
+    padding-bottom: 110px;
+    border-bottom: 1px solid #ced1d4;
+}
+.panel .panel-search input {
+    background-color: #d5d5d5;
+    outline: none;
+    border: none;
 }

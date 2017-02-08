@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Demos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            overflow-y: scroll;
+        }
+        ul {
+            list-style: none;
+        }
+        #menu {
+            width: 440px;
+            margin: 50px auto 0;
+            border: 1px solid #938e8c;
+            border-radius: 3px;
+        }
+        #menu li {
+            overflow: hidden;
+            border-bottom: 1px solid #938e8c;
+        }
+        #menu li:last-child {
+            border: none;
+        }
+        #menu li h4 {
+            line-height: 40px;
+            text-indent: 1em;
+            cursor: pointer;
+        }
+        #menu li div {
+            display: none;
+            background-color: #4a4237;
+        }
+        #menu div a {
+            display: block;
+            text-decoration: none;
+            color: #333;
+            line-height: 30px;
+            text-indent: 1em;
+            color: #eee;
+            border-bottom: 1px solid #cfa25c;
+        }
+        #menu div a:last-child {
+            border: none;
+        }
+        #menu div a:hover {
+            background-color: #cfa25c;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <ul id="menu">
+        <li>
+            <h4>静态页面</h4>
+            <div>
+                <a href="https://luyaolee.github.io/ife/task_1_5/index.html" target="_blank">demo_1</a>
+                <a href="https://luyaolee.github.io/ife/task_1_6/index.html" target="_blank">demo_2</a>
+                <a href="https://luyaolee.github.io/ife/task_1_7/index.html" target="_blank">demo_3</a>
+            </div>
+        </li>
+        <li>
+            <h4>Bootstrap</h4>
+            <div>
+                <a href="https://luyaolee.github.io/bootstrap/tribute.html" target="_blank">FreeCodeCamp 里的小练习</a>
+                <a href="https://luyaolee.github.io/bootstrap/browser.html" target="_blank">浏览器博物馆</a>
+                <a href="https://luyaolee.github.io/bootstrap/practice_1.html" target="_blank">仿Bootstrap精选网站</a>
+            </div>
+        </li>
+        <li>
+            <h4>AJAX</h4>
+            <div>
+                <a href="https://luyaolee.github.io/ajax/quote.html" target="_blank">随机经典台词</a>
+                <a href="https://luyaolee.github.io/ajax/search.html" target="_blank">百度一下(js版，jsonp处理跨域请求)</a>
+                <a href="https://luyaolee.github.io/ajax/search_jq.html" target="_blank">百度一下(jq版，jsonp处理跨域请求)</a>
+            </div>
+        </li>
+        <li>
+            <h4>Canvas</h4>
+            <div>
+                <a href="https://luyaolee.github.io/canvas/clock_js.html" target="_blank">简易时钟</a>
+            </div>
+        </li>
+        <li>
+            <h4>原生js部分练习</h4>
+            <div>
+                <a href="https://luyaolee.github.io/a/change-style.html" target="_blank">给div设置样式</a>
+                <a href="https://luyaolee.github.io/a/edit.html" target="_blank">函数传参</a>
+                <a href="https://luyaolee.github.io/a/text.html" target="_blank">文字查找替换</a>
+                <a href="https://luyaolee.github.io/a/grid/index.html" target="_blank">炉石刮刮乐</a>
+                <a href="https://luyaolee.github.io/a/lagou/index.html" target="_blank">仿拉勾网轮播图</a>
+                <a href="https://luyaolee.github.io/a/chat/index.html" target="_blank">简易聊天框</a>
+            </div>
+        </li>
+    </ul>
+
+<!-- 引入脚本 -->
+<script src="src/jquery-2.1.4.min.js"></script>
+<script>
+    $(function() {
+       $("#menu li").find("h4").click(function() {
+           $("#menu li").find("div").not($(this).next()).slideUp();
+           $(this).next().slideToggle();
+       });
+    });
+</script>
+</body>
+</html>
