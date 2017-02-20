@@ -1,0 +1,155 @@
+body {
+  margin: 0;
+  -webkit-user-select: none;
+  -webkit-text-size-adjust: 100%;
+}
+
+body * {
+  -webkit-user-select: none;
+  font-family: Helvetica;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+a,
+input,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+input,
+button {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+h1,
+p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#header {
+  position: absolute;
+  width: 15rem;
+  height: 2.06rem;
+  background-color: #ef3239;
+  border-bottom: 1px solid #a82d31;
+  font-size: 0.66rem;
+}
+#header a {
+  width: 2.56rem;
+  height: 2.06rem;
+  line-height: 2.06rem;
+  position: absolute;
+  top: 0;
+  text-align: center;
+  color: #fff;
+}
+#header #task {
+  left: 0;
+}
+#header #refresh {
+  right: 0;
+}
+#header h1 {
+  text-align: center;
+  font-size: 0.76rem;
+  color: #fff;
+  height: 2.06rem;
+  line-height: 2.06rem;
+}
+#header h1 span {
+  margin-right: 0.2rem;
+}
+
+.active {
+  color: #f23838 !important;
+}
+
+#nav {
+  background-color: #fff;
+  position: absolute;
+  top: 2.06rem;
+  left: 0;
+  width: 15rem;
+  height: 2.06rem;
+  line-height: 2.06rem;
+  border-bottom: 1px solid #ccc;
+}
+#nav a {
+  float: left;
+  width: 25%;
+  text-align: center;
+  color: #848689;
+  font-size: 0.7rem;
+}
+#nav a #spanBox {
+  display: inline-block;
+  width: 0.8rem;
+  vertical-align: middle;
+}
+#nav a #spanBox span {
+  float: left;
+}
+#nav a #spanBox .glyphicon-chevron-down {
+  margin-top: -0.12rem;
+  margin-left: -0.06rem;
+}
+
+#main {
+  position: absolute;
+  top: 4.16rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+}
+
+#list a {
+  display: block;
+  padding: 0.46rem;
+  border-bottom: 1px solid #ddd;
+}
+#list a .img-box {
+  width: 4.7rem;
+  height: 4.7rem;
+  float: left;
+}
+#list a .img-box img {
+  width: 100%;
+}
+#list a .title {
+  font-size: 0.56rem;
+  line-height: 0.88rem;
+  color: #333;
+  margin-top: 0.1rem;
+}
+#list a .price {
+  font-size: 0.76rem;
+  line-height: 1.28rem;
+  margin-top: 0.62rem;
+  color: #f23838;
+}
+#list a .conment {
+  font-size: 0.56rem;
+  line-height: 0.94rem;
+  display: block;
+  color: #808080;
+}
+
+/*# sourceMappingURL=main.css.map */
