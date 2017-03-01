@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IFE JavaScript Task 04</title>
+    <style>
+        #right_in {
+            margin-right: 30px;
+        }
+        body {
+            padding: 100px 0 0 400px;
+        }
+        #queue {
+            padding: 10px 10px 10px 0;
+            overflow: hidden;
+        }
+        #queue span {
+            float: left;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            color: #fff;
+            font-size: 25px;
+            background-color: red;
+            text-align: center;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<input id="input" type="text">
+<button id="left_in">左侧入</button>
+<button id="right_in">右侧入</button>
+<button id="left_out">左侧出</button>
+<button id="right_out">右侧出</button>
+<div id="queue"></div>
+
+<script>
+    (function() {
+        var Dom = {
+            input: document.getElementById("input"),
+            leftIn: document.getElementById("left_in"),
+            rightIn: document.getElementById("right_in"),
+            leftOut: document.getElementById("left_out"),
+            rightOut: document.getElementById("right_out"),
+            queue: document.getElementById("queue")
+        };
+        Dom.input.onfocus = function() {
+            Dom.input.value = "";
+        }
+        Dom.leftIn.onclick = function() {
+            var span = document.createElement("span");
+            span.innerHTML = Dom.input.value;
+            Dom.queue.insertBefore(span, Dom.queue.firstChild);
+            Dom.input.value = "";
+        };
+        Dom.rightIn.onclick = function() {
+            var span = document.createElement("span");
+            span.innerHTML = Dom.input.value;
+            Dom.queue.appendChild(span);
+            Dom.input.value = "";
+        };
+        Dom.leftOut.onclick = function() {
+            if (Dom.queue.childNodes.length == 0) {
+                alert("已经都出列了！");
+            } else {
+                var shift = Dom.queue.firstChild.innerHTML;
+                Dom.queue.removeChild(Dom.queue.firstChild);
+                alert(shift + " 左侧出列！");
+            }
+        };
+        Dom.rightOut.onclick = function() {
+            if (Dom.queue.childNodes.length == 0) {
+                alert("已经都出列了！");
+            } else {
+                var pop = Dom.queue.lastChild.innerHTML;
+                Dom.queue.removeChild(Dom.queue.lastChild);
+                alert(pop + " 右侧出列！");
+            }
+        }
+        Dom.queue.onclick = function(ev) {
+            if (ev.target.tagName.toUpperCase() == "SPAN") {
+                this.removeChild(ev.target);          //ev.target为触发事件的节点
+            }
+        }
+
+    })();
+</script>
+</body>
+</html>
