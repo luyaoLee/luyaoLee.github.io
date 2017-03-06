@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IFE JavaScript Task 04</title>
+    <style>
+        #right_in {
+            margin-right: 30px;
+        }
+        #sort_btn {
+            margin-left: 30px;
+        }
+        body {
+            padding: 100px 0 0 400px;
+        }
+        #queue {
+            padding: 10px 10px 10px 0;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+        }
+        #queue span {
+            float: left;
+            width: 20px;
+            color: #fff;
+            font-size: 12px;
+            background-color: red;
+            text-align: center;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<input id="input" type="text">
+<button id="left_in">左侧入</button>
+<button id="right_in">右侧入</button>
+<button id="left_out">左侧出</button>
+<button id="right_out">右侧出</button>
+<button id="sort_btn">排序</button>
+<div id="queue"></div>
+
+<script>
+    (function() {
+        var Dom = {
+            input: document.getElementById("input"),
+            leftIn: document.getElementById("left_in"),
+            rightIn: document.getElementById("right_in"),
+            leftOut: document.getElementById("left_out"),
+            rightOut: document.getElementById("right_out"),
+            sortBtn: document.getElementById("sort_btn"),
+            queue: document.getElementById("queue")
+        };
+        Dom.input.onfocus = function() {
+            Dom.input.value = "";
+        }
+        Dom.leftIn.onclick = function() {
+            if (Dom.queue.getElementsByTagName("span").length >= 10) {
+                alert("队列上限为10，出列或删除队列可继续添加！");
+                return false;
+            }
+            var flag = validate();
+            if (flag) {
+                var span = document.createElement("span");
+                span.innerHTML = Dom.input.value;
+                span.style.height = Dom.input.value * 2 + "px";
+                Dom.queue.insertBefore(span, Dom.queue.firstChild);
+                Dom.input.value = "";
+            } else {
+                return false;
+            }
+        };
+        Dom.rightIn.onclick = function() {
+            if (Dom.queue.getElementsByTagName("span").length >= 10) {
+                alert("队列上限为10，出列或删除队列可继续添加！");
+                return false;
+            }
+            var flag = validate();
+            if (flag) {
+                var span = document.createElement("span");
+                span.innerHTML = Dom.input.value;
+                span.style.height = Dom.input.value * 2 + "px";
+                Dom.queue.appendChild(span);
+                Dom.input.value = "";
+            } else {
+                return false;
+            }
+        };
+        Dom.leftOut.onclick = function() {
+            if (Dom.queue.childNodes.length == 0) {
+                alert("已经都出列了！");
+            } else {
+                var shift = Dom.queue.firstChild.innerHTML;
+                Dom.queue.removeChild(Dom.queue.firstChild);
+                alert(shift + " 左侧出列！");
+            }
+        };
+        Dom.rightOut.onclick = function() {
+            if (Dom.queue.childNodes.length == 0) {
+                alert("已经都出列了！");
+            } else {
+                var pop = Dom.queue.lastChild.innerHTML;
+                Dom.queue.removeChild(Dom.queue.lastChild);
+                alert(pop + " 右侧出列！");
+            }
+        }
+        Dom.queue.onclick = function(ev) {
+            if (ev.target.tagName.toUpperCase() == "SPAN") {
+                this.removeChild(ev.target);                    //ev.target为触发事件的节点
+            }
+        }
+        Dom.sortBtn.onclick = function() {
+            var barArr = getBarHeight();
+            var sortArr = bubbleSort(barArr);
+            var sortSpan = "";
+            for (var i = 0; i < sortArr.length; i++) {
+                sortSpan += "<span style='height : "+ sortArr[i] +"px'>"+ (sortArr[i] / 2) +"</span>";
+            }
+            Dom.queue.innerHTML = sortSpan;
+        }
+
+        function validate() {
+            var reg = /^(?:[1-9]\d|100)$/;
+            if (!reg.test(Dom.input.value)) {
+                alert("请输入10-100之间的整数！");
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function getBarHeight() {
+            var hArr = [];
+            for (var i = 0; i < Dom.queue.getElementsByTagName("span").length; i++) {
+                hArr.push(Dom.queue.getElementsByTagName("span")[i].offsetHeight);
+            }
+            return hArr;
+        }
+
+        function bubbleSort(arr) {
+            var n = arr.length;
+            var temp = null;
+
+            for (var i = 0; i < n - 1; i++) {
+                for (var j = 0; j < n-1-i; j++) {
+                    if (arr[j] > arr[j+1]) {
+                        temp = arr[j];
+                        arr[j] = arr[j+1];
+                        arr[j+1] = temp;
+                    }
+                }
+            }
+            return arr;
+        }
+    })();
+</script>
+</body>
+</html>
