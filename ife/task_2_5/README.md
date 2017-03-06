@@ -1,5 +1,5 @@
 ﻿### 任务描述
-- 需要实现如 效果图([点击查看](https://luyaolee.github.io/ife/task_2_4/task_2_5_1.jpg))  所示。
+- 需要实现如 效果图([点击查看](https://luyaolee.github.io/ife/task_2_5/task_2_5_1.jpg))  所示。
 - 基于上一任务
 - 限制输入的数字在10-100
 - 队列元素数量最多限制为60个，当超过60个时，添加元素时alert出提示
