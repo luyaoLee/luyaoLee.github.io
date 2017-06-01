@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>task_3_1</title>
+    <style>
+        .item {
+            width: 480px;
+            margin: 100px auto;
+            display: block;
+        }
+        .item .input-area {
+            display: inline-block;
+            width: 180px;
+            vertical-align: text-top;
+            margin: 0 20px;
+        }
+        .item .input-area input {
+            height: 25px;
+            width: 180px;
+        }
+        .item .input-area .tips {
+            color: #666;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <label class="item">
+        <span>名称</span>
+        <div class="input-area">
+            <input type="text">
+            <span class="tips">必填，长度为4-16个字符</span>
+        </div>
+        <button>验证</button>
+    </label>
+    <label class="item">
+        <span>名称</span>
+        <span class="input-area">
+            <input type="text">
+            <span class="tips">姓名不能为空</span>
+        </span>
+        <button>验证</button>
+    </label>
+    <label class="item">
+        <span>名称</span>
+        <span class="input-area">
+            <input type="text">
+            <span class="tips">名称格式正确</span>
+        </span>
+        <button>验证</button>
+    </label>
+</body>
+</html>
