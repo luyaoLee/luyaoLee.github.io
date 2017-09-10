@@ -1,6 +1,0 @@
-{
-  "devDependencies": {
-    "sequelize": "^4.8.2",
-    "sqlite3": "^3.1.9"
-  }
-}
