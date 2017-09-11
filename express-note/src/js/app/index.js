@@ -1,5 +1,4 @@
 require('less/index.less');
-var $ = require('jquery');
 
 var NoteManager = require('mod/note-manager.js').NoteManager;
 var Event = require('mod/event.js');
