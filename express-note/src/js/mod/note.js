@@ -119,7 +119,6 @@ Note.prototype = {
   },
 
   add: function (msg){
-    console.log('addd...');
     var self = this;
     $.post('/api/notes/add', {note: msg})
       .done(function(ret){
@@ -141,7 +140,7 @@ Note.prototype = {
         if(ret.status === 0){
           Toast('delete success');
           self.$note.remove();
-          Event.fire('waterfall')
+          Event.fire('waterfall');
         }else{
           Toast(ret.errorMsg);
         }
