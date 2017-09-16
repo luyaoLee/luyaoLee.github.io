@@ -555,51 +555,40 @@ module.exports.Toast = Toast;
 /* 4 */
 /***/ (function(module, exports) {
 
-
-  var EventCenter = (function(){
+var EventCenter = (function() {
 
     var events = {};
 
-    function on(evt, handler){
-      events[evt] = events[evt] || []; 
+    function on(evt, handler) {
+        events[evt] = events[evt] || [];
 
-      events[evt].push({
-        handler: handler
-      });
+        events[evt].push({handler: handler});
     }
 
-    function fire(evt, args){
-      if(!events[evt]){
-        return;
-      }
-      for(var i=0; i<events[evt].length; i++){
-        events[evt][i].handler(args);
-      }
-      
+    function fire(evt, args) {
+        if (!events[evt]) {
+            return;
+        }
+        for (var i = 0; i < events[evt].length; i++) {
+            events[evt][i].handler(args);
+        }
+
     }
 
-    return {
-      on: on,
-      fire: fire
-    }
-  })();
+    return {on: on, fire: fire}
+})();
 
-  module.exports = EventCenter;
+module.exports = EventCenter;
 
+// EventCenter.on('text-change', function(data){
+//  console.log(data);
+// });
 
+// EventCenter.on('text-change', function(data){
+//  alert(1);
+// });
 
-
-
-  // EventCenter.on('text-change', function(data){
-  //  console.log(data);
-  // });
-  
-  // EventCenter.on('text-change', function(data){
-  //  alert(1);
-  // });
-  
-
-  // EventCenter.fire('text-change', 100);
+// EventCenter.fire('text-change', 100);
 
 
 /***/ }),
@@ -664,7 +653,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "html,\nbody {\n  margin: 0;\n  height: 100%;\n}\nul,\nli {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\nbody {\n  font: 14px/1.4 'Arial';\n}\na {\n  text-decoration: none;\n  color: #fff;\n}\n#header {\n  height: 30px;\n  font-size: 12px;\n}\n#header a {\n  display: block;\n  font-size: 12px;\n  margin-top: 6px;\n}\n#header .user-area {\n  padding-right: 16px;\n  float: right;\n}\n#header .user-area li {\n  float: left;\n  margin-left: 5px;\n}\n#header .user-area li span {\n  color: #fff;\n  display: block;\n  margin-top: 6px;\n}\n#header .user-area img {\n  height: 18px;\n  margin-top: 5px;\n  border-radius: 50%;\n}\n#header .setting {\n  float: right;\n  margin-left: 9px;\n  display: none;\n}\n#header .add-note {\n  float: left;\n  margin-left: 16px;\n  border: 1px solid #fff;\n  border-radius: 4px;\n  padding: 2px 4px;\n}\n#header .login {\n  float: right;\n  margin-left: 16px;\n}\n#content {\n  position: relative;\n  height: -webkit-calc(70%);\n  height: calc(70%);\n}\n@keyframes move-twink-back {\n  from {\n    background-position: 0 0;\n  }\n  to {\n    background-position: -10000px 5000px;\n  }\n}\n.stars,\n.twinkling {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  width: 100%;\n  height: 100%;\n  display: block;\n}\n.stars {\n  background: #000 url(http://7xpvnv.com2.z0.glb.qiniucdn.com/ba25c630-1c91-4ac1-a3de-65555d78c147.png) repeat top center;\n  z-index: -2;\n}\n.twinkling {\n  background: transparent url(http://7xpvnv.com2.z0.glb.qiniucdn.com/493b97e6-c499-4b41-a26b-8942873615b0.png) repeat top center;\n  z-index: -1;\n  animation: move-twink-back 200s linear infinite;\n}\n", ""]);
+exports.push([module.i, "body,\nhtml {\n  margin: 0;\n  height: 100%;\n}\nli,\nul {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\nbody {\n  font: 14px/1.4 'Arial';\n}\na {\n  text-decoration: none;\n  color: #fff;\n}\n#header {\n  height: 30px;\n  font-size: 12px;\n}\n#header a {\n  display: block;\n  font-size: 12px;\n  margin-top: 6px;\n}\n#header .user-area {\n  padding-right: 16px;\n  float: right;\n}\n#header .user-area li {\n  float: left;\n  margin-left: 5px;\n}\n#header .user-area li span {\n  color: #fff;\n  display: block;\n  margin-top: 6px;\n}\n#header .user-area img {\n  height: 18px;\n  margin-top: 5px;\n  border-radius: 50%;\n}\n#header .setting {\n  float: right;\n  margin-left: 9px;\n  display: none;\n}\n#header .add-note {\n  float: left;\n  margin-left: 16px;\n  border: 1px solid #fff;\n  border-radius: 4px;\n  padding: 2px 4px;\n}\n#header .login {\n  float: right;\n  margin-left: 16px;\n}\n#content {\n  position: relative;\n  height: -webkit-calc(70%);\n  height: calc(70%);\n}\n@keyframes move-twink-back {\n  from {\n    background-position: 0 0;\n  }\n  to {\n    background-position: -10000px 5000px;\n  }\n}\n.stars,\n.twinkling {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  width: 100%;\n  height: 100%;\n  display: block;\n}\n.stars {\n  background: #000 url(\"http://7xpvnv.com2.z0.glb.qiniucdn.com/ba25c630-1c91-4ac1-a3de-65555d78c147.png\") repeat top center;\n  z-index: -2;\n}\n.twinkling {\n  background: transparent url(\"http://7xpvnv.com2.z0.glb.qiniucdn.com/493b97e6-c499-4b41-a26b-8942873615b0.png\") repeat top center;\n  z-index: -1;\n  animation: move-twink-back 200s linear infinite;\n}\n", ""]);
 
 // exports
 
@@ -783,40 +772,30 @@ var Toast = __webpack_require__(3).Toast;
 var Event = __webpack_require__(4);
 var $ = __webpack_require__(0);
 
+var NoteManager = (function() {
 
-var NoteManager = (function(){
+    function load() {
+        $.get('/api/notes').done(function(ret) {
+            if (ret.status == 0) {
+                $.each(ret.data, function(idx, article) {
+                    new Note({id: article.id, context: article.text});
+                });
 
-  function load() {
-    $.get('/api/notes')
-      .done(function(ret){
-        if(ret.status == 0){
-          $.each(ret.data, function(idx, article) {
-              new Note({
-                id: article.id,
-                context: article.text
-              });
-          });
+                Event.fire('waterfall');
+            } else {
+                Toast(ret.errorMsg);
+            }
+        }).fail(function() {
+            Toast('网络异常');
+        });
 
-          Event.fire('waterfall');
-        }else{
-          Toast(ret.errorMsg);
-        }
-      })
-      .fail(function(){
-        Toast('网络异常');
-      });
+    }
 
+    function add() {
+        new Note();
+    }
 
-  }
-
-  function add(){
-    new Note();
-  }
-
-  return {
-    load: load,
-    add: add
-  }
+    return {load: load, add: add}
 
 })();
 
@@ -878,149 +857,165 @@ var Toast = __webpack_require__(3).Toast;
 var Event = __webpack_require__(4);
 var $ = __webpack_require__(0);
 
-function Note(opts){
-  this.initOpts(opts);
-  this.createNote();
-  this.setStyle();
-  this.bindEvent();
+function Note(opts) {
+    this.initOpts(opts);
+    this.createNote();
+    this.setStyle();
+    this.bindEvent();
 }
 Note.prototype = {
-  colors: [
-    ['#ea9b35','#efb04e'], // headColor, containerColor
-    ['#dd598b','#e672a2'],
-    ['#eee34b','#f2eb67'],
-    ['#c24226','#d15a39'],
-    ['#c1c341','#d0d25c'],
-    ['#3f78c3','#5591d2']
-  ],
+    colors: [
+        [
+            '#ea9b35', '#efb04e'
+        ], // headColor, containerColor
+        [
+            '#dd598b', '#e672a2'
+        ],
+        [
+            '#eee34b', '#f2eb67'
+        ],
+        [
+            '#c24226', '#d15a39'
+        ],
+        [
+            '#c1c341', '#d0d25c'
+        ],
+        ['#3f78c3', '#5591d2']
+    ],
 
-  defaultOpts: {
-    id: '',   //Note的 id
-    $ct: $('#content').length>0?$('#content'):$('body'),  //默认存放 Note 的容器
-    context: 'input here'  //Note 的内容
-  },
+    defaultOpts: {
+        id: '', //Note的 id
+        $ct: $('#content').length > 0
+            ? $('#content')
+            : $('body'), //默认存放 Note 的容器
+        context: 'input here' //Note 的内容
+    },
 
-  initOpts: function (opts) {
-    this.opts = $.extend({}, this.defaultOpts, opts||{});
-    if(this.opts.id){
-       this.id = this.opts.id;
+    initOpts: function(opts) {
+        this.opts = $.extend({}, this.defaultOpts, opts || {});
+        if (this.opts.id) {
+            this.id = this.opts.id;
+        }
+    },
+
+    createNote: function() {
+        var tpl = '<div class="note">' +
+        '<div class="note-head"><span class="delete">&times;</span></div>' +
+        '<div class="note-ct" contenteditable="true"></div>' +
+        '</div>';
+        this.$note = $(tpl);
+        this.$note.find('.note-ct').html(this.opts.context);
+        this.opts.$ct.append(this.$note);
+        if (!this.id)
+            this.$note.css('bottom', '10px'); //新增放到右边
+        }
+    ,
+
+    setStyle: function() {
+        var color = this.colors[Math.floor(Math.random() * 6)];
+        this.$note.find('.note-head').css('background-color', color[0]);
+        this.$note.find('.note-ct').css('background-color', color[1]);
+    },
+
+    setLayout: function() {
+        var self = this;
+        if (self.clk) {
+            clearTimeout(self.clk);
+        }
+        self.clk = setTimeout(function() {
+            Event.fire('waterfall');
+        }, 100);
+    },
+
+    bindEvent: function() {
+        var self = this,
+            $note = this.$note,
+            $noteHead = $note.find('.note-head'),
+            $noteCt = $note.find('.note-ct'),
+            $delete = $note.find('.delete');
+
+        $delete.on('click', function() {
+            self.delete();
+        })
+
+        //contenteditable没有 change 事件，所有这里做了模拟通过判断元素内容变动，执行 save
+        $noteCt.on('focus', function() {
+            if ($noteCt.html() == 'input here')
+                $noteCt.html('');
+            $noteCt.data('before', $noteCt.html());
+        }).on('blur paste', function() {
+            if ($noteCt.data('before') != $noteCt.html()) {
+                $noteCt.data('before', $noteCt.html());
+                self.setLayout();
+                if (self.id) {
+                    self.edit($noteCt.html())
+                } else {
+                    self.add($noteCt.html())
+                }
+            }
+        });
+
+        //设置笔记的移动
+        $noteHead.on('mousedown', function(e) {
+            var evtX = e.pageX - $note.offset().left, //evtX 计算事件的触发点在 dialog内部到 dialog 的左边缘的距离
+                evtY = e.pageY - $note.offset().top;
+            $note.addClass('draggable').data('evtPos', {
+                x: evtX,
+                y: evtY
+            }); //把事件到 dialog 边缘的距离保存下来
+        }).on('mouseup', function() {
+            $note.removeClass('draggable').removeData('pos');
+        });
+
+        $('body').on('mousemove', function(e) {
+            $('.draggable').length && $('.draggable').offset({
+                top: e.pageY - $('.draggable').data('evtPos').y, // 当用户鼠标移动时，根据鼠标的位置和前面保存的距离，计算 dialog 的绝对位置
+                left: e.pageX - $('.draggable').data('evtPos').x
+            });
+        });
+    },
+
+    edit: function(msg) {
+        var self = this;
+        $.post('/api/notes/edit', {
+            id: this.id,
+            note: msg
+        }).done(function(ret) {
+            if (ret.status === 0) {
+                Toast('update success');
+            } else {
+                Toast(ret.errorMsg);
+            }
+        })
+    },
+
+    add: function(msg) {
+        var self = this;
+        $.post('/api/notes/add', {note: msg}).done(function(ret) {
+            if (ret.status === 0) {
+                Toast('add success');
+            } else {
+                self.$note.remove();
+                Event.fire('waterfall')
+                Toast(ret.errorMsg);
+            }
+        });
+        //todo
+    },
+
+    delete: function() {
+        var self = this;
+        $.post('/api/notes/delete', {id: this.id}).done(function(ret) {
+            if (ret.status === 0) {
+                Toast('delete success');
+                self.$note.remove();
+                Event.fire('waterfall');
+            } else {
+                Toast(ret.errorMsg);
+            }
+        });
+
     }
-  },
-
-  createNote: function () {
-    var tpl =  '<div class="note">'
-              + '<div class="note-head"><span class="delete">&times;</span></div>'
-              + '<div class="note-ct" contenteditable="true"></div>'
-              +'</div>';
-    this.$note = $(tpl);
-    this.$note.find('.note-ct').html(this.opts.context);
-    this.opts.$ct.append(this.$note);
-    if(!this.id)  this.$note.css('bottom', '10px');  //新增放到右边
-  },
-
-  setStyle: function () {
-    var color = this.colors[Math.floor(Math.random()*6)];
-    this.$note.find('.note-head').css('background-color', color[0]);
-    this.$note.find('.note-ct').css('background-color', color[1]);
-  },
-
-  setLayout: function(){
-    var self = this;
-    if(self.clk){
-      clearTimeout(self.clk);
-    }
-    self.clk = setTimeout(function(){
-      Event.fire('waterfall');
-    },100);
-  },
-
-  bindEvent: function () {
-    var self = this,
-        $note = this.$note,
-        $noteHead = $note.find('.note-head'),
-        $noteCt = $note.find('.note-ct'),
-        $delete = $note.find('.delete');
-
-    $delete.on('click', function(){
-      self.delete();
-    })
-
-    //contenteditable没有 change 事件，所有这里做了模拟通过判断元素内容变动，执行 save
-    $noteCt.on('focus', function() {
-      if($noteCt.html()=='input here') $noteCt.html('');
-      $noteCt.data('before', $noteCt.html());
-    }).on('blur paste', function() {
-      if( $noteCt.data('before') != $noteCt.html() ) {
-        $noteCt.data('before',$noteCt.html());
-        self.setLayout();
-        if(self.id){
-          self.edit($noteCt.html())
-        }else{
-          self.add($noteCt.html())
-        }
-      }
-    });
-
-    //设置笔记的移动
-    $noteHead.on('mousedown', function(e){
-      var evtX = e.pageX - $note.offset().left,   //evtX 计算事件的触发点在 dialog内部到 dialog 的左边缘的距离
-          evtY = e.pageY - $note.offset().top;
-      $note.addClass('draggable').data('evtPos', {x:evtX, y:evtY}); //把事件到 dialog 边缘的距离保存下来
-    }).on('mouseup', function(){
-       $note.removeClass('draggable').removeData('pos');
-    });
-
-    $('body').on('mousemove', function(e){
-      $('.draggable').length && $('.draggable').offset({
-        top: e.pageY-$('.draggable').data('evtPos').y,    // 当用户鼠标移动时，根据鼠标的位置和前面保存的距离，计算 dialog 的绝对位置
-        left: e.pageX-$('.draggable').data('evtPos').x
-      });
-    });
-  },
-
-  edit: function (msg) {
-    var self = this;
-    $.post('/api/notes/edit',{
-        id: this.id,
-        note: msg
-      }).done(function(ret){
-      if(ret.status === 0){
-        Toast('update success');
-      }else{
-        Toast(ret.errorMsg);
-      }
-    })
-  },
-
-  add: function (msg){
-    var self = this;
-    $.post('/api/notes/add', {note: msg})
-      .done(function(ret){
-        if(ret.status === 0){
-          Toast('add success');
-        }else{
-          self.$note.remove();
-          Event.fire('waterfall')
-          Toast(ret.errorMsg);
-        }
-      });
-    //todo
-  },
-
-  delete: function(){
-    var self = this;
-    $.post('/api/notes/delete', {id: this.id})
-      .done(function(ret){
-        if(ret.status === 0){
-          Toast('delete success');
-          self.$note.remove();
-          Event.fire('waterfall');
-        }else{
-          Toast(ret.errorMsg);
-        }
-    });
-
-  }
 
 };
 
@@ -1067,7 +1062,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, ".note {\n  position: absolute;\n  color: #333;\n  width: 160px;\n  margin: 20px 10px;\n  transition: all 0.5s;\n}\n.note .note-head {\n  height: 20px;\n  background-color: #ea9b35;\n  cursor: move;\n}\n.note .note-head:hover .delete {\n  opacity: 1;\n}\n.note .note-head:before {\n  position: absolute;\n  left: 50%;\n  top: -11px;\n  margin-left: -32px;\n  content: ' ';\n  display: block;\n  width: 64px;\n  height: 18px;\n  background: #35bba3;\n}\n.note .note-head:after {\n  position: absolute;\n  left: 50%;\n  margin-left: 32px;\n  top: -11px;\n  z-index: -1;\n  content: '';\n  display: block;\n  width: 0;\n  height: 0;\n  border-left: 5px solid #299683;\n  border-top: 18px solid transparent;\n}\n.note .note-ct {\n  padding: 10px;\n  background-color: #efb04e;\n  outline: none;\n}\n.note .delete {\n  position: absolute;\n  top: 4px;\n  right: 4px;\n  font-size: 12px;\n  color: #fff;\n  cursor: pointer;\n  opacity: 0;\n  transition: opacity .3s;\n}\n.draggable {\n  opacity: 0.8;\n  cursor: move;\n  transition: none;\n}\n", ""]);
+exports.push([module.i, ".note {\n  position: absolute;\n  color: #333;\n  width: 160px;\n  margin: 20px 10px;\n  transition: all 0.5s;\n}\n.note .note-head {\n  height: 20px;\n  background-color: #ea9b35;\n  cursor: move;\n}\n.note .note-head:hover .delete {\n  opacity: 1;\n}\n.note .note-head:before {\n  position: absolute;\n  left: 50%;\n  top: -11px;\n  margin-left: -32px;\n  content: ' ';\n  display: block;\n  width: 64px;\n  height: 18px;\n  background: #35bba3;\n}\n.note .note-head:after {\n  position: absolute;\n  left: 50%;\n  margin-left: 32px;\n  top: -11px;\n  z-index: -1;\n  content: '';\n  display: block;\n  width: 0;\n  height: 0;\n  border-left: 5px solid #299683;\n  border-top: 18px solid transparent;\n}\n.note .note-ct {\n  padding: 10px;\n  background-color: #efb04e;\n  outline: none;\n}\n.note .delete {\n  position: absolute;\n  top: 4px;\n  right: 4px;\n  font-size: 12px;\n  color: #fff;\n  cursor: pointer;\n  opacity: 0;\n  transition: opacity 0.3s;\n}\n.draggable {\n  opacity: 0.8;\n  cursor: move;\n  transition: none;\n}\n", ""]);
 
 // exports
 
@@ -1077,54 +1072,47 @@ exports.push([module.i, ".note {\n  position: absolute;\n  color: #333;\n  width
 /***/ (function(module, exports, __webpack_require__) {
 
 var $ = __webpack_require__(0);
-var WaterFall = (function(){
-  var $ct;
-  var $items;
+var WaterFall = (function() {
+    var $ct;
+    var $items;
 
-  function render($c){
-    $ct = $c;
-    $items = $ct.children();
+    function render($c) {
+        $ct = $c;
+        $items = $ct.children();
 
-    var nodeWidth = $items.outerWidth(true),
-      colNum = parseInt($(window).width()/nodeWidth),
-      colSumHeight = [];
+        var nodeWidth = $items.outerWidth(true),
+            colNum = parseInt($(window).width() / nodeWidth),
+            colSumHeight = [];
 
-    for(var i = 0; i<colNum;i++){
-      colSumHeight.push(0);
+        for (var i = 0; i < colNum; i++) {
+            colSumHeight.push(0);
+        }
+
+        $items.each(function() {
+            var $cur = $(this);
+
+            //colSumHeight = [100, 250, 80, 200]
+
+            var idx = 0,
+                minSumHeight = colSumHeight[0];
+
+            for (var i = 0; i < colSumHeight.length; i++) {
+                if (colSumHeight[i] < minSumHeight) {
+                    idx = i;
+                    minSumHeight = colSumHeight[i];
+                }
+            }
+
+            $cur.css({left: nodeWidth*idx, top: minSumHeight});
+            colSumHeight[idx] = $cur.outerHeight(true) + colSumHeight[idx];
+        });
     }
 
-    $items.each(function(){
-      var $cur = $(this);
+    $(window).on('resize', function() {
+        render($ct);
+    })
 
-      //colSumHeight = [100, 250, 80, 200]
-
-      var idx = 0,
-        minSumHeight = colSumHeight[0];
-
-      for(var i=0;i<colSumHeight.length; i++){
-        if(colSumHeight[i] < minSumHeight){
-          idx = i;
-          minSumHeight = colSumHeight[i];
-        }
-      }
-
-      $cur.css({
-        left: nodeWidth*idx,
-        top: minSumHeight
-      });
-      colSumHeight[idx] = $cur.outerHeight(true) + colSumHeight[idx];
-    });
-  }
-
-
-  $(window).on('resize', function(){
-    render($ct);
-  })
-
-
-  return {
-    init: render
-  }
+    return {init: render}
 })();
 
 module.exports = WaterFall

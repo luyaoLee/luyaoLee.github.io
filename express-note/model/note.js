@@ -10,11 +10,14 @@ const sequelize = new Sequelize(undefined, undefined, undefined, {
 const Note = sequelize.define('note', {
     text: {
         type: Sequelize.STRING
+    },
+    uid: {
+        type: Sequelize.STRING
     }
 });
 
-Note.findAll({raw: true, where: {id: 1}}).then(notes => {
-    console.log(notes)
-});
+Note.sync({force: true});
+
+
 
 module.exports = Note;
