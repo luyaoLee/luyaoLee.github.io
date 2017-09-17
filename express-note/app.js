@@ -29,11 +29,6 @@ app.use(session({secret: 'dsfre3453sdfs23g'}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-
-
-
-
 app.use('/', index);
 app.use('/auth', auth);
 app.use('/api', api);
