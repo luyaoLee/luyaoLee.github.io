@@ -1,45 +1,40 @@
-var $ = require('jquery');
-var WaterFall = (function() {
-    var $ct;
-    var $items;
+let Waterfall = (() => {
+    class _Waterfall {
+        constructor($ct) {
+            this.$ct = $ct;
+            this.$item = this.$ct.children();
+            this.render();
+            this.bindEvent();
+        }
+        render() {
+            let itemWidth = this.$item.outerWidth(true);
+            let columns = parseInt($(window).width() / itemWidth);
+            let colSumHeights = new Array(columns).fill(0);
 
-    function render($c) {
-        $ct = $c;
-        $items = $ct.children();
+            this.$item.each(() => {
+                let minSumHeight = Math.min.apply(null, colSumHeights);
+                let idx = colSumHeights.indexOf(minSumHeight);
 
-        var nodeWidth = $items.outerWidth(true),
-            colNum = parseInt($(window).width() / nodeWidth),
-            colSumHeight = [];
-
-        for (var i = 0; i < colNum; i++) {
-            colSumHeight.push(0);
+                $(this).css({
+                    left: itemWidth * idx,
+                    top: minSumHeight
+                });
+                colSumHeights[idx] += $(this).outerWidth(true);
+            });
+        }
+        bindEvent() {
+            $(window).resize(() => {
+                this.render();
+            });
         }
 
-        $items.each(function() {
-            var $cur = $(this);
-
-            //colSumHeight = [100, 250, 80, 200]
-
-            var idx = 0,
-                minSumHeight = colSumHeight[0];
-
-            for (var i = 0; i < colSumHeight.length; i++) {
-                if (colSumHeight[i] < minSumHeight) {
-                    idx = i;
-                    minSumHeight = colSumHeight[i];
-                }
+        return {
+            init: $ct => {
+                new _Waterfall($ct);
             }
-
-            $cur.css({left: nodeWidth*idx, top: minSumHeight});
-            colSumHeight[idx] = $cur.outerHeight(true) + colSumHeight[idx];
-        });
+        }
     }
+})()
 
-    $(window).on('resize', function() {
-        render($ct);
-    })
-
-    return {init: render}
-})();
-
-module.exports = WaterFall
+window.Waterfall = Waterfall;
+module.exports = Waterfall;

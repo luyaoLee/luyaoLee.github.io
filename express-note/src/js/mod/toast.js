@@ -1,31 +1,33 @@
-var less = require('less/toast.less');
-var $ = require('jquery');
+require('less/toast.less');
 
-function _Toast(msg, time) {
-    this.msg = msg;
-    this.dismissTime = time || 1000;
-    this.createToast();
-    this.showToast();
-}
-
-_Toast.prototype = {
-    createToast: function() {
-        var tpl = '<div class="toast" style="display: none;">'+ this.msg + '</div>';
-        this.$toast = $(tpl);
-        $('body').append(this.$toast);
-    },
-    showToast: function() {
-        var _this = this;
-        this.$toast.fadeIn(function() {
-            setTimeout(function() {
-                _this.$toast.fadeOut();
-            }, _this.dismissTime);
-        });
+let Toast = (() => {
+    class _Toast {
+        constructor(msg, time = 1000) {
+            this.msg = msg;
+            this.dispearTime = time;
+            this.createToast();
+            this.showToast();
+        }
+        createToast () {
+            let tpl = `<span class="toast">${this.msg}</span>`;
+            this.$toast = $(tpl);
+            $('body').append(this.$toast);
+        }
+        showToast () {
+            this.$toast.fadeIn(() => {
+                setTimeout(() => {
+                    this.$toast.fadeOut();
+                }, this.dispearTime);
+            });
+        }
     }
-}
 
-function Toast(msg, time) {
-    return new _Toast(msg, time);
-}
+    return {
+        init: (msg, time) => {
+            new _Toast(msg, time);
+        }
+    }
+})();
 
-module.exports.Toast = Toast;
+window.Toast = Toast;
+module.exports = Toast;
