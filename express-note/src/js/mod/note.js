@@ -1,169 +1,149 @@
 require('less/note.less');
 
-var Toast = require('./toast.js').Toast;
-var Event = require('mod/event.js');
-var $ = require('jquery');
+const Toast = require('./toast.js');
+const Event = require('./event.js');
 
-function Note(opts) {
-    this.initOpts(opts);
-    this.createNote();
-    this.setStyle();
-    this.bindEvent();
-}
-Note.prototype = {
-    colors: [
-        [
-            '#ea9b35', '#efb04e'
-        ], // headColor, containerColor
-        [
-            '#dd598b', '#e672a2'
-        ],
-        [
-            '#eee34b', '#f2eb67'
-        ],
-        [
-            '#c24226', '#d15a39'
-        ],
-        [
-            '#c1c341', '#d0d25c'
-        ],
-        ['#3f78c3', '#5591d2']
-    ],
-
-    defaultOpts: {
-        id: '', //Note的 id
-        $ct: $('#content').length > 0
-            ? $('#content')
-            : $('body'), //默认存放 Note 的容器
-        context: 'input here' //Note 的内容
-    },
-
-    initOpts: function(opts) {
-        this.opts = $.extend({}, this.defaultOpts, opts || {});
-        if (this.opts.id) {
-            this.id = this.opts.id;
+let Note = (() => {
+    class _Note {
+        constructor(opts) {
+            this.defaultOpts = {
+                id: '',
+                uid: '',
+                author: 'Admin',
+                $ct: $('#content').length > 0
+                    ? $('#content')
+                    : $('body'),
+                context: 'Input something here',
+                title: 'Input your title'
+            };
+            this.initOpts(opts);
+            this.createNote();
+            this.bindEvent();
         }
-    },
-
-    createNote: function() {
-        var tpl = '<div class="note">' +
-        '<div class="note-head"><span class="delete">&times;</span></div>' +
-        '<div class="note-ct" contenteditable="true"></div>' +
-        '</div>';
-        this.$note = $(tpl);
-        this.$note.find('.note-ct').html(this.opts.context);
-        this.opts.$ct.append(this.$note);
-        if (!this.id)
-            this.$note.css('bottom', '10px'); //新增放到右边
+        initOpts(opts) {
+            this.opts = $.extend({}, this.defaultOpts, opts || {});
+            this.id = this.opts.id
+                ? this.opts.id
+                : '';
+            // this.uid = this.opts.uid ? this.opts.uid : '';
+            // this.title = this.opts.title ? this.opts.title : 'Input your title...';
+            // this.$ct = this.opts.$ct ? this.opts.$ct : ($('#content').length > 0 ? $('#content') : $('body'));
+            // this.context = this.opts.context ? this.opts.context : 'Input something here';
+            // this.author = this.opts.author ? this.opts.author : 'Admin'
         }
-    ,
-
-    setStyle: function() {
-        var color = this.colors[Math.floor(Math.random() * 6)];
-        this.$note.find('.note-head').css('background-color', color[0]);
-        this.$note.find('.note-ct').css('background-color', color[1]);
-    },
-
-    setLayout: function() {
-        var self = this;
-        if (self.clk) {
-            clearTimeout(self.clk);
+        createNote() {
+            let tpl = `<div class="note">
+                          <div class="note-head">
+                              <span class="delete">&times;</span>
+                          </div>
+                          <div class="note-ct" contenteditable="true"></div>
+                      </div>`;
+            this.$note = $(tpl);
+            this.$note.find('.note-ct').html(this.opts.context);
+            this.opts.$ct.append(this.$note);
+            if (!this.id) {
+                this.$note.css('bottom', '10px'); //新增放到右边
+            }
         }
-        self.clk = setTimeout(function() {
-            Event.fire('waterfall');
-        }, 100);
-    },
-
-    bindEvent: function() {
-        var self = this,
-            $note = this.$note,
-            $noteHead = $note.find('.note-head'),
-            $noteCt = $note.find('.note-ct'),
-            $delete = $note.find('.delete');
-
-        $delete.on('click', function() {
-            self.delete();
-        })
-
-        //contenteditable没有 change 事件，所有这里做了模拟通过判断元素内容变动，执行 save
-        $noteCt.on('focus', function() {
-            if ($noteCt.html() == 'input here')
-                $noteCt.html('');
-            $noteCt.data('before', $noteCt.html());
-        }).on('blur paste', function() {
-            if ($noteCt.data('before') != $noteCt.html()) {
-                $noteCt.data('before', $noteCt.html());
-                self.setLayout();
-                if (self.id) {
-                    self.edit($noteCt.html())
-                } else {
-                    self.add($noteCt.html())
-                }
-            }
-        });
-
-        //设置笔记的移动
-        $noteHead.on('mousedown', function(e) {
-            var evtX = e.pageX - $note.offset().left, //evtX 计算事件的触发点在 dialog内部到 dialog 的左边缘的距离
-                evtY = e.pageY - $note.offset().top;
-            $note.addClass('draggable').data('evtPos', {
-                x: evtX,
-                y: evtY
-            }); //把事件到 dialog 边缘的距离保存下来
-        }).on('mouseup', function() {
-            $note.removeClass('draggable').removeData('pos');
-        });
-
-        $('body').on('mousemove', function(e) {
-            $('.draggable').length && $('.draggable').offset({
-                top: e.pageY - $('.draggable').data('evtPos').y, // 当用户鼠标移动时，根据鼠标的位置和前面保存的距离，计算 dialog 的绝对位置
-                left: e.pageX - $('.draggable').data('evtPos').x
-            });
-        });
-    },
-
-    edit: function(msg) {
-        var self = this;
-        $.post('/api/notes/edit', {
-            id: this.id,
-            note: msg
-        }).done(function(ret) {
-            if (ret.status === 0) {
-                Toast('update success');
-            } else {
-                Toast(ret.errorMsg);
-            }
-        })
-    },
-
-    add: function(msg) {
-        var self = this;
-        $.post('/api/notes/add', {note: msg}).done(function(ret) {
-            if (ret.status === 0) {
-                Toast('add success');
-            } else {
-                self.$note.remove();
-                Event.fire('waterfall')
-                Toast(ret.errorMsg);
-            }
-        });
-        //todo
-    },
-
-    delete: function() {
-        var self = this;
-        $.post('/api/notes/delete', {id: this.id}).done(function(ret) {
-            if (ret.status === 0) {
-                Toast('delete success');
-                self.$note.remove();
+        setLayout() {
+            if (this.clk)
+                clearTimeout(this.clk);
+            this.clk = setTimeout(() => {
                 Event.fire('waterfall');
-            } else {
-                Toast(ret.errorMsg);
-            }
-        });
+            }, 100);
+        }
+        bindEvent() {
+            let $noteHead = this.$note.find('.note-head');
+            let $noteCt = this.$note.find('.note-ct');
+            let $delete = this.$note.find('.delete');
 
+            $delete.click(() => {
+                this.delete();
+            })
+
+            $noteCt.on('focus', () => {
+                if ($noteCt.html() == 'Input something here') {
+                    $noteCt.html('');
+                }
+                $noteCt.data('before', $noteCt.html());
+            }).on('blur paste', () => {
+                if ($noteCt.data('before') != $noteCt.html()) {
+                    $noteCt.data('before', $noteCt.html());
+                    this.setLayout();
+                    if (this.id) {
+                        this.edit($noteCt.html());
+                    } else {
+                        this.add($noteCt.html());
+                    }
+                }
+            });
+
+            //设置笔记移动
+            $noteHead.on('mousedown', e => {
+                let evtX = e.pageX - this.$note.offset().left; //evtX 计算事件的触发点在 dialog内部到 dialog 的左边缘的距离
+                let evtY = e.pageY - this.$note.offset().top;
+                this.$note.addClass('draggable').data('evtPos', {
+                    x: evtX,
+                    y: evtY
+                }); //把事件到 dialog 边缘的距离保存下来
+
+                $('body').on('mousemove', e => {
+                    e.preventDefault();
+                    $('.draggable').length && $('.draggable').offset({
+                        top: e.pageY - $('.draggable').data('evtPos').y, // 当用户鼠标移动时，根据鼠标的位置和前面保存的距离，计算 dialog 的绝对位置
+                        left: e.pageX - $('.draggable').data('evtPos').x
+                    });
+                });
+            }).on('mouseup', () => {
+                this.$note.removeClass('draggable').removeData('evtPos');
+            });
+
+
+        }
+
+        edit(msg) {
+            $.post('/api/notes/edit', {
+                id: this.id,
+                note: msg
+            }).done(ret => {
+                if (ret.status === 0) {
+                    Toast.init('update success');
+                } else {
+                    Toast.init(ret.errorMsg);
+                }
+            });
+        }
+
+        add(msg) {
+            $.post('/api/notes/add', {note: msg}).done(ret => {
+                if (ret.status === 0) {
+                    Toast.init('add success');
+                } else {
+                    this.$note.remove();
+                    Event.fire('waterfall');
+                    Toast.init(ret.errorMsg);
+                }
+            });
+        }
+
+        delete() {
+            $.post('/api/notes/delete', {id: this.id}).done(ret => {
+                if (ret.status === 0) {
+                    Toast.init('delete success');
+                    this.$note.remove();
+                    Event.fire('waterfall');
+                } else {
+                    Toast.init(ret.errorMsg);
+                }
+            })
+        }
     }
+    return {
+        init: (opts) => {
+            new _Note(opts);
+        }
+    }
+})();
 
-};
-
-module.exports.Note = Note;
+window.Note = Note;
+module.exports = Note;
