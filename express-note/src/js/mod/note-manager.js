@@ -1,29 +1,33 @@
-const Toast = require('./toast.js');
-const Note = require('./note.js');
-const EventCenter = require('./event.js');
+var Note = require('mod/note.js');
+var EventCenter = require('mod/event.js');
+var Toast = require('mod/toast.js');
 
-let NoteManager = (() => {
-    let load = () => {
-        $.get('/api/notes').done(ret => {
+var noteManager = (function() {
+    function load() {
+        $.get('/api/notes').done(function(ret) {
             if (ret.status === 0) {
-                $.each(ret.data, (idx, note) => {
-                    Note.init({id: note.id, context: note.text});
+                $.each(ret.data, function(idx, note) {
+                    Note.init({
+                        id:note.id,
+                        context: note.text,
+                        username: note.username,
+                        time: new Date(parseInt(note.updatedAt)).toLocaleString('chinese',{hour12:false})
+                    });
                 });
 
                 EventCenter.fire('waterfall');
             } else {
                 Toast.init(ret.errorMsg);
             }
-        }).fail(() => {
+        }).fail(function() {
             Toast.init('网络异常');
         });
     }
-
-    let add = () => {
+    function add() {
         Note.init();
     }
 
     return {load: load, add: add}
 })();
 
-module.exports = NoteManager;
+module.exports = noteManager;

@@ -3,21 +3,18 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    var loginData;
     if (req.session.user) {
-        var loginData = {
+        loginData = {
             isLogin: true,
-            user: {
-                avatar: req.session.user.avatar,
-                username: req.session.user.username
-            }
+            user: req.session.user
         }
     } else {
-        var loginData = {
+        loginData = {
             isLogin: false
         }
     }
-
-    res.render('index', loginData);
+  res.render('index', loginData);
 });
 
 module.exports = router;

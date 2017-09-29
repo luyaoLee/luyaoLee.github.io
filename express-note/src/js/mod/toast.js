@@ -1,33 +1,40 @@
 require('less/toast.less');
 
-let Toast = (() => {
-    class _Toast {
-        constructor(msg, time = 1000) {
-            this.msg = msg;
-            this.dispearTime = time;
-            this.createToast();
-            this.showToast();
-        }
-        createToast () {
-            let tpl = `<span class="toast">${this.msg}</span>`;
+var Toast = (function() {
+    /**
+     * [_Toast description]
+     * @param       {string} msg  [需要toast的信息]
+     * @param       {number} time [toast弹框持续时间，毫秒]
+     */
+
+    function _Toast(msg, time) {
+        this.msg = msg;
+        this.time = time || 1000;
+        this.createToast();
+        this.showToast();
+    }
+    _Toast.prototype = {
+        createToast: function() {
+            var tpl = '<span class="toast">' + this.msg + '</span>';
             this.$toast = $(tpl);
             $('body').append(this.$toast);
-        }
-        showToast () {
-            this.$toast.fadeIn(() => {
-                setTimeout(() => {
-                    this.$toast.fadeOut();
-                }, this.dispearTime);
+        },
+        showToast: function() {
+            var _this = this;
+            this.$toast.fadeIn(function() {
+                setTimeout(function() {
+                    _this.$toast.fadeOut(function() {
+                        _this.$toast.remove();
+                    });
+                }, _this.time);
             });
         }
     }
-
     return {
-        init: (msg, time) => {
+        init: function(msg, time) {
             new _Toast(msg, time);
         }
     }
 })();
 
-window.Toast = Toast;
 module.exports = Toast;
